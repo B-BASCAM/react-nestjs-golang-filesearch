@@ -12,7 +12,7 @@ export class FileSearchCreatedHandler
     private readonly repository: FilesEntityRepository
   ) { }
 
-  //TODO queue ekle
+  //TODO queue ekle starting to queue
   handle(event: FileSearchCreatedEvent) {
     const { heroId, dragonId } = event;
     console.log(clc.greenBright('FileSearchCreated...') + "heroId:" + heroId + ", dragonId:" + "dragonId");
