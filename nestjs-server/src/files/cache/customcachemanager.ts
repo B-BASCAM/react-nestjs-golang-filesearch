@@ -1,6 +1,6 @@
 import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { Cache } from 'cache-manager';
-import { showFileSearchResDto } from '../dto/showfilesearchres.dto';
+
 
 @Injectable()
 export class CustomCacheManager {

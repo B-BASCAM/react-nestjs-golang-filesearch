@@ -10,6 +10,7 @@ import { AutomapperModule } from '@automapper/nestjs';
 import { FilesController } from './files.controller';
 import { ConfigModule } from '@nestjs/config';
 import { CustomCacheManager } from './cache/customcachemanager';
+import { RedisManager } from './queue/redismanager';
 
 
 
@@ -28,6 +29,7 @@ import { CustomCacheManager } from './cache/customcachemanager';
     ...CommandHandlers,
     ...EventHandlers,
     CustomCacheManager,
+    RedisManager,
   ],
 
 })

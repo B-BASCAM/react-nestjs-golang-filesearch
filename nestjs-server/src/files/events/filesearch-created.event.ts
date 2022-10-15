@@ -1,7 +1,7 @@
 export class FileSearchCreatedEvent {
   constructor(
-    public readonly heroId: string,
-    public readonly dragonId: string,
+    public readonly id: string,
+    public readonly requestedFileName: string,
   ) { }
 }
 

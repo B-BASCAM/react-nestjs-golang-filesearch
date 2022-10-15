@@ -1,5 +1,5 @@
 import { } from '@nestjs/common';
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { CreateFileSearchCommand } from './create-filesearch.command';
 import { FilesEntityRepository } from '../repository/files-entity.repository';
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
@@ -7,6 +7,7 @@ import { afterMap, beforeMap, createMap, Mapper } from '@automapper/core';
 import { FileSearchEntity } from '../entities/filesearch.entity';
 import { createFileSearchReqDto, createFileSearchResDto } from '../dto/index';
 import { SearchStatusEnum } from '../enums/searchstatus.enum';
+import { FileSearchCreatedEvent } from '../events/filesearch-created.event';
 
 @CommandHandler(CreateFileSearchCommand)
 export class CreateEndpointHandler
@@ -16,6 +17,7 @@ export class CreateEndpointHandler
 
     constructor(
         private readonly repository: FilesEntityRepository,
+        private readonly eventBus: EventBus,
         @InjectMapper() mapper: Mapper,
     ) {
         super(mapper);
@@ -46,8 +48,14 @@ export class CreateEndpointHandler
         let fileSearchEntity = this.mapper.map(createfileSearchReqDto, createFileSearchReqDto, FileSearchEntity);
 
         let createdfileSearchEntity = await this.repository.create(fileSearchEntity);
+        let createfileSearchResDto = this.mapper.map(createdfileSearchEntity, FileSearchEntity, createFileSearchResDto);
 
-        return this.mapper.map(createdfileSearchEntity, FileSearchEntity, createFileSearchResDto);
+        //adds redis queue
+        this.eventBus.publish(
+            new FileSearchCreatedEvent(createfileSearchResDto.id, createfileSearchResDto.requestedFileName)
+        )
+
+        return createfileSearchResDto;
 
     }
 }
