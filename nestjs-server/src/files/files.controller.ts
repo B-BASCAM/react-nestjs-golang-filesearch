@@ -1,34 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { FilesService } from './files.service';
-import { CreateFileDto } from './dto/create-file.dto';
-import { UpdateFileDto } from './dto/update-file.dto';
-
+import { Body, Controller, Get, Param, Post, Put, Delete, NotFoundException, ParseUUIDPipe, UsePipes } from '@nestjs/common';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
+import { createFileSearchReqDto, showFileSearchReqDto, createFileSearchResDto, showFileSearchResDto } from './dto/index';
+import { GetFileSearchByIdQuery } from './queries/get-filesearchbyid.query';
+import { CreateFileSearchCommand } from './commands/create-filesearch.command';
 @Controller('files')
 export class FilesController {
-  constructor(private readonly filesService: FilesService) {}
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+  ) { }
 
   @Post()
-  create(@Body() createFileDto: CreateFileDto) {
-    return this.filesService.create(createFileDto);
+  createFileSearchRequest(@Body() params: createFileSearchReqDto): Promise<createFileSearchResDto> {
+    return this.commandBus.execute(new CreateFileSearchCommand(params));
   }
 
-  @Get()
-  findAll() {
-    return this.filesService.findAll();
-  }
-
+  @ApiNotFoundResponse({ description: '404. NotFoundException. User was not found', })
+  @ApiCreatedResponse({ type: showFileSearchReqDto })
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.filesService.findOne(+id);
+  async showFileSearchResult(@Param() params: showFileSearchReqDto): Promise<showFileSearchResDto> {
+    const searchResult = await this.queryBus.execute(new GetFileSearchByIdQuery(params.id))
+    if (!searchResult) {
+      throw new NotFoundException('The user does not exist');
+    }
+    return searchResult;
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFileDto: UpdateFileDto) {
-    return this.filesService.update(+id, updateFileDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.filesService.remove(+id);
-  }
 }
