@@ -1,1 +1,1 @@
-![stronghold logo](img/nestjs-golang-filesearch.png)
+![stronghold logo](assets/img/nestjs-golang-filesearch.png)
