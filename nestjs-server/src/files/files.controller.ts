@@ -1,10 +1,12 @@
-import { Body, Controller, Get, Param, Post, NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, NotFoundException, InternalServerErrorException, Header } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiCreatedResponse } from '@nestjs/swagger';
 import { createFileSearchReqDto, showFileSearchReqDto, createFileSearchResDto, showFileSearchResDto } from './dto/index';
 import { GetFileSearchByIdQuery } from './queries/get-filesearchbyid.query';
 import { CreateFileSearchCommand } from './commands/create-filesearch.command';
 import { ConfigService } from '@nestjs/config';
+import { CustomCacheManager } from './cache/customcachemanager';
+
 
 @Controller('files')
 export class FilesController {
@@ -12,6 +14,7 @@ export class FilesController {
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
     private readonly configService: ConfigService,
+    private readonly customCacheManager: CustomCacheManager,
   ) { }
 
 
@@ -32,9 +35,17 @@ export class FilesController {
 
   }
 
+  @Header('content-type', 'application/json')
   @ApiCreatedResponse({ type: showFileSearchResDto })
   @Get(':id')
   async showFileSearchResult(@Param() params: showFileSearchReqDto): Promise<showFileSearchResDto> {
+
+    //gets cache value according to parameter
+    const value = await this.customCacheManager.getFromCache(Promise<showFileSearchResDto>, params.id)
+    if (value) {
+      return value;
+    }
+
 
     let searchResult: Promise<showFileSearchResDto>
 
@@ -47,6 +58,11 @@ export class FilesController {
     if (!searchResult) {
       throw new NotFoundException(this.configService.get('ERROR_NOTFOUND', ''));
     }
+
+
+    //Set Cache
+    await this.customCacheManager.addToCache(params.id, JSON.stringify(await searchResult), 3000);
+
 
     return searchResult;
   }

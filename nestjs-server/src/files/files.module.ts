@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FileSearchEntity } from './entities/filesearch.entity';
@@ -9,6 +9,8 @@ import { EventHandlers } from './events/index';
 import { AutomapperModule } from '@automapper/nestjs';
 import { FilesController } from './files.controller';
 import { ConfigModule } from '@nestjs/config';
+import { CustomCacheManager } from './cache/customcachemanager';
+
 
 
 @Module({
@@ -16,14 +18,16 @@ import { ConfigModule } from '@nestjs/config';
     CqrsModule,
     TypeOrmModule.forFeature([FileSearchEntity]),
     AutomapperModule,
-    ConfigModule
+    ConfigModule,
+    CacheModule.register({ max: 10, isGlobal: true })
   ],
   controllers: [FilesController],
   providers: [
     FilesEntityRepository,
     ...QueryHandlers,
     ...CommandHandlers,
-    ...EventHandlers
+    ...EventHandlers,
+    CustomCacheManager,
   ],
 
 })
