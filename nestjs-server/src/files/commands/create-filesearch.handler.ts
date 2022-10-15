@@ -50,7 +50,7 @@ export class CreateEndpointHandler
         let createdfileSearchEntity = await this.repository.create(fileSearchEntity);
         let createfileSearchResDto = this.mapper.map(createdfileSearchEntity, FileSearchEntity, createFileSearchResDto);
 
-        //adds redis queue
+        //triggers event-bus to add redis queue
         this.eventBus.publish(
             new FileSearchCreatedEvent(createfileSearchResDto.id, createfileSearchResDto.requestedFileName)
         )

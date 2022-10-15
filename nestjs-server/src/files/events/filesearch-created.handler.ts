@@ -3,10 +3,10 @@ import { EventsHandler } from '@nestjs/cqrs/dist/decorators/events-handler.decor
 import * as clc from 'cli-color';
 import { FileSearchCreatedEvent } from './filesearch-created.event';
 import { RedisManager } from '../queue/redismanager';
+
 @EventsHandler(FileSearchCreatedEvent)
 export class FileSearchCreatedHandler
   implements IEventHandler<FileSearchCreatedEvent> {
-
 
   constructor(
     private readonly redisManager: RedisManager,
@@ -16,6 +16,5 @@ export class FileSearchCreatedHandler
     const { id, requestedFileName } = event;
     this.redisManager.sendMessage(id, requestedFileName)
   }
-
 
 }

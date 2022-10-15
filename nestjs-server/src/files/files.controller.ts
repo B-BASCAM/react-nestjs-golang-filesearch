@@ -6,7 +6,7 @@ import { GetFileSearchByIdQuery } from './queries/get-filesearchbyid.query';
 import { CreateFileSearchCommand } from './commands/create-filesearch.command';
 import { ConfigService } from '@nestjs/config';
 import { CustomCacheManager } from './cache/customcachemanager';
-import { RedisManager } from './queue/redismanager';
+
 
 
 @Controller('files')

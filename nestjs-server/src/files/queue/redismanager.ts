@@ -8,8 +8,6 @@ export class RedisManager {
 
     constructor(private readonly configService: ConfigService,) { }
 
-
-
     async sendMessage(id: string, requestedFileName: string) {
 
         let client = celery.createClient(
@@ -25,10 +23,5 @@ export class RedisManager {
             client.disconnect();
         });
 
-        //alternative -2 
-        // result.get().then(data => {   
-        //     console.log(data);
-        //     client.disconnect();
-        // });
     }
 }
