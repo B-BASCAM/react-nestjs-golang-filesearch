@@ -10,10 +10,10 @@ async function bootstrap() {
   app.enableCors();
 
   const config = new DocumentBuilder()
-    .setTitle('Task example')
-    .setDescription('Tasks API description')
+    .setTitle('File Search System')
+    .setDescription('Creates File Search Requests')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('filesearchsystem')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

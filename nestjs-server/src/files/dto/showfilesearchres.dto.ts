@@ -1,7 +1,5 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
-import { SearchStatusEnum } from '../enums/searchstatus.enum';
-
 
 export class showFileSearchResDto {
     @ApiProperty()

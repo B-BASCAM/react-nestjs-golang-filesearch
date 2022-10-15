@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Delete, NotFoundException, ParseUUIDPipe, UsePipes } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Delete, NotFoundException, ParseUUIDPipe, UsePipes, ConflictException, InternalServerErrorException } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
 import { createFileSearchReqDto, showFileSearchReqDto, createFileSearchResDto, showFileSearchResDto } from './dto/index';
@@ -11,18 +11,32 @@ export class FilesController {
     private readonly queryBus: QueryBus,
   ) { }
 
+  @ApiCreatedResponse({ type: createFileSearchResDto })
   @Post()
   createFileSearchRequest(@Body() params: createFileSearchReqDto): Promise<createFileSearchResDto> {
-    return this.commandBus.execute(new CreateFileSearchCommand(params));
+    let createResult: Promise<createFileSearchResDto>;
+    try {
+      createResult = this.commandBus.execute(new CreateFileSearchCommand(params))
+    }
+    catch (err) {
+      throw new InternalServerErrorException('An Error Occured: ' + err);
+    }
+    return createResult;
   }
 
-  @ApiNotFoundResponse({ description: '404. NotFoundException. User was not found', })
-  @ApiCreatedResponse({ type: showFileSearchReqDto })
+  @ApiNotFoundResponse({ description: '404. NotFoundException. File Search Request Not Found', })
+  @ApiCreatedResponse({ type: showFileSearchResDto })
   @Get(':id')
   async showFileSearchResult(@Param() params: showFileSearchReqDto): Promise<showFileSearchResDto> {
-    const searchResult = await this.queryBus.execute(new GetFileSearchByIdQuery(params.id))
+    let searchResult: Promise<showFileSearchResDto>
+    try {
+      searchResult = this.queryBus.execute(new GetFileSearchByIdQuery(params.id))
+
+    } catch (err) {
+      throw new InternalServerErrorException('An Error Occured: ' + err);
+    }
     if (!searchResult) {
-      throw new NotFoundException('The user does not exist');
+      throw new NotFoundException('Search Request Not Found');
     }
     return searchResult;
   }
