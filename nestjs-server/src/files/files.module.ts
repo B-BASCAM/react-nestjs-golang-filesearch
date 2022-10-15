@@ -9,13 +9,14 @@ import { CommandHandlers } from './commands/index';
 import { EventHandlers } from './events/index';
 import { AutomapperModule } from '@automapper/nestjs';
 import { FilesController } from './files.controller';
-
+import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
 
   imports: [
     CqrsModule,
     TypeOrmModule.forFeature([FileSearchEntity]),
-    AutomapperModule
+    AutomapperModule,
+    ConfigModule
   ],
   controllers: [FilesController],
   providers: [
