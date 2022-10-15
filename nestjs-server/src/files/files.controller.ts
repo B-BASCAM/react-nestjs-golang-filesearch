@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Param, Post, Put, Delete, NotFoundException, ParseUUIDPipe, UsePipes, ConflictException, InternalServerErrorException } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse } from '@nestjs/swagger';
 import { createFileSearchReqDto, showFileSearchReqDto, createFileSearchResDto, showFileSearchResDto } from './dto/index';
 import { GetFileSearchByIdQuery } from './queries/get-filesearchbyid.query';
 import { CreateFileSearchCommand } from './commands/create-filesearch.command';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('files')
 export class FilesController {

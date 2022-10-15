@@ -9,7 +9,7 @@ import { CommandHandlers } from './commands/index';
 import { EventHandlers } from './events/index';
 import { AutomapperModule } from '@automapper/nestjs';
 import { FilesController } from './files.controller';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 @Module({
 
   imports: [
