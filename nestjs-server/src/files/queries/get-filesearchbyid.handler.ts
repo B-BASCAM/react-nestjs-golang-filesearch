@@ -34,6 +34,7 @@ export class GetFileSearchByIdHandler
     }
     async execute(query: GetFileSearchByIdQuery) {
         const { id } = query;
+        console.log(new Date())
         const fileSearchEntity = await this.repository.findById(id);
         return this.mapper.map(fileSearchEntity, FileSearchEntity, showFileSearchResDto);
     }
