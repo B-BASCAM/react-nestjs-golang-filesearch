@@ -12,11 +12,10 @@ export class FileSearchCreatedHandler
     private readonly redisManager: RedisManager,
   ) { }
 
-  //TODO queue ekle starting to queue
   handle(event: FileSearchCreatedEvent) {
     const { id, requestedFileName } = event;
     this.redisManager.sendMessage(id, requestedFileName)
   }
 
-  
+
 }
