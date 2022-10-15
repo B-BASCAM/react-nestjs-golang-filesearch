@@ -11,6 +11,7 @@ import { AutomapperModule } from '@automapper/nestjs';
 import { FilesController } from './files.controller';
 
 @Module({
+
   imports: [
     CqrsModule,
     TypeOrmModule.forFeature([FileSearchEntity]),
@@ -23,5 +24,7 @@ import { FilesController } from './files.controller';
     ...CommandHandlers,
     ...EventHandlers
   ],
+
 })
+
 export class FilesModule { }

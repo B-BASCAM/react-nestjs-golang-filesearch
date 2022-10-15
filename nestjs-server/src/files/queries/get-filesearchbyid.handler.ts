@@ -9,8 +9,7 @@ import { SearchStatusEnum } from '../enums/searchstatus.enum';
 
 
 @QueryHandler(GetFileSearchByIdQuery)
-export class GetFileSearchByIdHandler
-    extends AutomapperProfile
+export class GetFileSearchByIdHandler extends AutomapperProfile
     implements IQueryHandler<GetFileSearchByIdQuery>
 {
 
@@ -19,23 +18,21 @@ export class GetFileSearchByIdHandler
     ) {
         super(mapper);
     }
+
     override get profile() {
         return (mapper) => {
             createMap(mapper, FileSearchEntity, showFileSearchResDto,
-
                 afterMap((source, destination) => {
                     destination.searchStatus = (SearchStatusEnum[source.searchStatus])
-                    // , destination.matchedFilePaths = source.matchedFilePaths
-
                 }));
-            // createMap(mapper, Task);
-            //createMap(mapper, TaskDto,beforeMap((source, destination) => {source._id=destination._id}));
         };
     }
     async execute(query: GetFileSearchByIdQuery) {
+
         const { id } = query;
-        console.log(new Date())
+
         const fileSearchEntity = await this.repository.findById(id);
+
         return this.mapper.map(fileSearchEntity, FileSearchEntity, showFileSearchResDto);
     }
 }

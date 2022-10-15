@@ -4,8 +4,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
 
+  const app = await NestFactory.create(AppModule);
 
   app.enableCors();
 
@@ -13,16 +13,15 @@ async function bootstrap() {
     .setTitle('File Search System')
     .setDescription('Creates File Search Requests')
     .setVersion('1.0')
-    .addTag('filesearchsystem')
+    .addTag('Nestjs Server')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
 
-
-
-
   await app.listen(3001);
+
 }
+
 bootstrap();

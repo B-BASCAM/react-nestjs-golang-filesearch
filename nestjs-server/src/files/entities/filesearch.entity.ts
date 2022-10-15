@@ -2,7 +2,6 @@ import { AutoMap } from '@automapper/classes';
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 import { SearchStatusEnum } from '../enums/searchstatus.enum';
 
-
 @Entity('filesearchresults')
 export class FileSearchEntity {
 

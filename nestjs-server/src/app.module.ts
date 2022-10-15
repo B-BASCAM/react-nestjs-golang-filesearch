@@ -1,22 +1,21 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
 import { FileSearchEntity } from './files/entities/filesearch.entity';
 import { FilesModule } from './files/files.module';
-
 import { classes } from '@automapper/classes';
 import { AutomapperModule } from '@automapper/nestjs';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 
-var configModule = ConfigModule.forRoot({
+let configModule = ConfigModule.forRoot({
   isGlobal: true,
 });
-var autoMapperModule = AutomapperModule.forRoot({
+
+let autoMapperModule = AutomapperModule.forRoot({
   strategyInitializer: classes(),
 });
 
-var typeOrmModule = TypeOrmModule.forRootAsync({
+let typeOrmModule = TypeOrmModule.forRootAsync({
   imports: [ConfigModule],
   inject: [ConfigService],
   useFactory: async (configService: ConfigService) => ({
@@ -31,11 +30,12 @@ var typeOrmModule = TypeOrmModule.forRootAsync({
     synchronize: true,
     authSource: 'admin',
   }),
-
-
 });
+
+
 @Module({
   imports: [configModule, autoMapperModule, typeOrmModule, FilesModule],
 
 })
+
 export class AppModule { }
