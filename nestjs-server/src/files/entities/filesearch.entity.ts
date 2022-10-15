@@ -5,7 +5,6 @@ import { SearchStatusEnum } from '../enums/searchstatus.enum';
 @Entity('filesearchresults')
 export class FileSearchEntity {
 
-
     @ObjectIdColumn()
     id: ObjectID;
 

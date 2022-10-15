@@ -6,8 +6,6 @@ import { beforeMap, afterMap, createMap, Mapper } from '@automapper/core';
 import { showFileSearchResDto } from '../dto/showfilesearchres.dto';
 import { FileSearchEntity } from '../entities/filesearch.entity';
 import { SearchStatusEnum } from '../enums/searchstatus.enum';
-
-
 @QueryHandler(GetFileSearchByIdQuery)
 export class GetFileSearchByIdHandler extends AutomapperProfile
     implements IQueryHandler<GetFileSearchByIdQuery>
