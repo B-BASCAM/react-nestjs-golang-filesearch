@@ -1,3 +1,3 @@
-module searching
+module golangapp
 
 go 1.19
