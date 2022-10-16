@@ -38,9 +38,7 @@ export class FilesController {
     }
 
     return createResult;
-
   }
-
 
 
   @ApiCreatedResponse({ type: showFileSearchResDto })
