@@ -18,6 +18,10 @@ export class showFileSearchResDto {
 
     @ApiProperty()
     @AutoMap()
+    countOfMatchedFiles: number;
+
+    @ApiProperty()
+    @AutoMap()
     createDate: Date;
 
     @ApiProperty()

@@ -37,7 +37,7 @@ export class GetFileSearchByIdHandler extends AutomapperProfile
         const { showfileSearchReqDto } = query;
 
         const fileSearchEntity = await this.repository.findById(showfileSearchReqDto.id);
-
+      
         let showfileSearchResDto = this.mapper.map(fileSearchEntity, FileSearchEntity, showFileSearchResDto);
 
         if (showfileSearchResDto) {

@@ -19,7 +19,11 @@ export class FileSearchEntity {
 
     @AutoMap()
     @Column()
-    progressPercentage: number;
+    progressPercentage: number = 0;
+
+    @AutoMap()
+    @Column()
+    countOfMatchedFiles: number = 0;
 
     @AutoMap()
     @Column()
