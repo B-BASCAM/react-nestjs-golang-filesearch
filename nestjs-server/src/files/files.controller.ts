@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, NotFoundException, InternalServerErrorException, Header } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, NotFoundException, InternalServerErrorException, Header, BadRequestException } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiCreatedResponse } from '@nestjs/swagger';
 import { createFileSearchReqDto, showFileSearchReqDto, createFileSearchResDto, showFileSearchResDto } from './dto/index';
@@ -6,6 +6,7 @@ import { GetFileSearchByIdQuery } from './queries/get-filesearchbyid.query';
 import { CreateFileSearchCommand } from './commands/create-filesearch.command';
 import { ConfigService } from '@nestjs/config';
 import { CustomCacheManager } from './cache/customcachemanager';
+
 
 
 @Controller('files')
@@ -43,36 +44,56 @@ export class FilesController {
 
 
   @ApiCreatedResponse({ type: showFileSearchResDto })
-  @Get(':id')
+  @Get('/:id/:pageNumber')
   @Header('content-type', 'application/json')
   async showFileSearchResult(@Param() params: showFileSearchReqDto): Promise<showFileSearchResDto> {
 
     let searchResult: Promise<showFileSearchResDto>
 
+    this.controlObjectIdParam(params)
+
     try {
 
-      const cachedValue = await this.customCacheManager.getFromCache(Promise<showFileSearchResDto>, params.id)
+      const cachedValue = await this.customCacheManager.getFromCache(Promise<showFileSearchResDto>, params.id + params.pageNumber)
+
       if (cachedValue) {
         return cachedValue;
       }
 
 
-      searchResult = this.queryBus.execute(new GetFileSearchByIdQuery(params.id))
+      searchResult = this.queryBus.execute(new GetFileSearchByIdQuery(params));
 
-      if (!searchResult) {
+      if (!(await searchResult)) {
         throw new NotFoundException(this.configService.get('ERROR_NOTFOUND', ''));
       }
 
-
-      await this.customCacheManager.addToCache(params.id, JSON.stringify(await searchResult), 3000);
+      await this.customCacheManager.addToCache(params.id + params.pageNumber, JSON.stringify(await searchResult), 3000);
 
     } catch (err) {
 
-      throw new InternalServerErrorException(this.configService.get('ERROR_INTERNALSERVER', '') + ": " + err);
-
+      if (err.status) {
+        throw err
+      } else {
+        throw new InternalServerErrorException(this.configService.get('ERROR_INTERNALSERVER', '') + ": " + err);
+      }
     }
 
     return searchResult;
+  }
+
+
+
+  controlObjectIdParam(params: showFileSearchReqDto) {
+    try {
+
+      const { ObjectID } = require('mongodb').ObjectId;
+
+      params.id = ObjectID(params.id)
+
+    } catch {
+
+      throw new BadRequestException(this.configService.get('ERROR_OBJECTID', ''))
+    }
   }
 
 }

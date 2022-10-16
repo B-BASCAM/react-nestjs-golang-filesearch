@@ -5,6 +5,7 @@ import { FilesModule } from './files/files.module';
 import { classes } from '@automapper/classes';
 import { AutomapperModule } from '@automapper/nestjs';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { FileSearchDetailEntity } from './files/entities/filesearchdetail.entity';
 
 
 let configModule = ConfigModule.forRoot({
@@ -26,7 +27,7 @@ let typeOrmModule = TypeOrmModule.forRootAsync({
     username: 'admin',
     password: 'admin',
     database: 'test',
-    entities: [FileSearchEntity],
+    entities: [FileSearchEntity, FileSearchDetailEntity],
     synchronize: true,
     authSource: 'admin',
   }),

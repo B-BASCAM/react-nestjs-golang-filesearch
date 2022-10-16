@@ -3,7 +3,7 @@ import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 import { SearchStatusEnum } from '../enums/searchstatus.enum';
 
 
-@Entity('filesearchresults')
+@Entity('filesearchtasks')
 export class FileSearchEntity {
 
     @ObjectIdColumn()
@@ -20,10 +20,6 @@ export class FileSearchEntity {
     @AutoMap()
     @Column()
     progressPercentage: number;
-
-    @AutoMap(() => [String])
-    @Column()
-    matchedFilePaths: string[] = [];
 
     @AutoMap()
     @Column()

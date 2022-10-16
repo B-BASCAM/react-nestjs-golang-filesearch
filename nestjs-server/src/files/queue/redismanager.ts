@@ -7,6 +7,7 @@ import * as celery from 'celery-node'
 export class RedisManager {
 
     redisBrokerAdr: string;
+
     redisBackendAdr: string;
 
     constructor(redisBroker: string, redisBackendAdr: string) {

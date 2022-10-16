@@ -5,7 +5,7 @@ import { Length } from 'class-validator';
 
 export class createFileSearchReqDto {
 
-    @Length(1, 50)
+    @Length(1, 100)
     @ApiProperty()
     @AutoMap()
     requestedFileName: string;

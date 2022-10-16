@@ -11,6 +11,7 @@ import { FilesController } from './files.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CustomCacheManager } from './cache/customcachemanager';
 import { RedisManager } from './queue/redismanager';
+import { FileSearchDetailEntity } from './entities/filesearchdetail.entity';
 
 
 let redisManager = {
@@ -26,7 +27,7 @@ let redisManager = {
 @Module({
   imports: [
     CqrsModule,
-    TypeOrmModule.forFeature([FileSearchEntity]),
+    TypeOrmModule.forFeature([FileSearchEntity, FileSearchDetailEntity]),
     AutomapperModule,
     ConfigModule,
     CacheModule.register({ max: 10, isGlobal: true })

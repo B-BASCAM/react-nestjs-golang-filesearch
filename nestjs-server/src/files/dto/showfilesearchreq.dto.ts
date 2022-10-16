@@ -1,10 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Length } from 'class-validator';
+import { IsNumberString, IsObject, Length } from 'class-validator';
+import { ObjectID } from 'typeorm';
 
 
 export class showFileSearchReqDto {
 
     @ApiProperty()
-    @Length(10, 30)
-    id: string;
+    @Length(24)
+    id: ObjectID;
+
+    @ApiProperty()
+    @IsNumberString()
+    @Length(1, 10)
+    pageNumber: string;
+
 }

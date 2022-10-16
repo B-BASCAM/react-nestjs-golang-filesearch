@@ -1,7 +1,9 @@
+import { showFileSearchReqDto } from "../dto";
+
 export class GetFileSearchByIdQuery {
 
     constructor(
-        public readonly id: string,
+        public readonly showfileSearchReqDto: showFileSearchReqDto,
     ) { }
 
 }

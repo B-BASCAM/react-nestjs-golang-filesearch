@@ -17,14 +17,14 @@ export class showFileSearchResDto {
     progressPercentage: number;
 
     @ApiProperty()
-    @AutoMap(() => [String])
-    matchedFilePaths: string[];
-
-    @ApiProperty()
     @AutoMap()
     createDate: Date;
 
     @ApiProperty()
     @AutoMap()
     lastUpdateDate: Date;
+
+    @ApiProperty()
+    @AutoMap(() => [String])
+    matchedFilePaths: string[];
 }
