@@ -18,8 +18,8 @@ export class RedisManager {
         //gocelery does not support TASK_PROTOCOL=2
         client.conf.TASK_PROTOCOL = 1
 
-        const task = client.createTask(taskName);   //"add"
-        const result = task.applyAsync(taskData).result().then(data => {  //[id, requestedFileName]
+        const task = client.createTask(taskName);
+        const result = task.applyAsync(taskData).result().then(data => {
             client.disconnect();
         });
 
