@@ -6,6 +6,7 @@ import { FileSearchEntity } from '../entities/filesearch.entity';
 
 @Injectable()
 export class FilesEntityRepository {
+
   constructor(
     @InjectRepository(FileSearchEntity)
     private readonly endpointRepository: MongoRepository<FileSearchEntity>,
@@ -20,13 +21,13 @@ export class FilesEntityRepository {
     return this.endpointRepository.findOneBy(ObjectID(id));
   }
 
+
+
   async create(fileSearchEntity: FileSearchEntity): Promise<FileSearchEntity> {
 
     const result = await this.endpointRepository.insert(fileSearchEntity);
 
     return this.endpointRepository.findOneBy(result.identifiers[0].id);
   }
-
-
 
 }

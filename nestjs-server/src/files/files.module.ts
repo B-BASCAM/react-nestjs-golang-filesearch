@@ -13,7 +13,6 @@ import { CustomCacheManager } from './cache/customcachemanager';
 import { RedisManager } from './queue/redismanager';
 
 
-
 @Module({
   imports: [
     CqrsModule,

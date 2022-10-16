@@ -8,15 +8,14 @@ import { ConfigService } from '@nestjs/config';
 import { CustomCacheManager } from './cache/customcachemanager';
 
 
-
 @Controller('files')
 export class FilesController {
+
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
     private readonly configService: ConfigService,
     private readonly customCacheManager: CustomCacheManager,
-
   ) { }
 
 
@@ -41,16 +40,17 @@ export class FilesController {
 
   }
 
-  @Header('content-type', 'application/json')
+
+
   @ApiCreatedResponse({ type: showFileSearchResDto })
   @Get(':id')
+  @Header('content-type', 'application/json')
   async showFileSearchResult(@Param() params: showFileSearchReqDto): Promise<showFileSearchResDto> {
 
     let searchResult: Promise<showFileSearchResDto>
 
     try {
 
-      //Get From Cache -> value changes according to parameter
       const cachedValue = await this.customCacheManager.getFromCache(Promise<showFileSearchResDto>, params.id)
       if (cachedValue) {
         return cachedValue;
@@ -64,7 +64,6 @@ export class FilesController {
       }
 
 
-      //Set Cache
       await this.customCacheManager.addToCache(params.id, JSON.stringify(await searchResult), 3000);
 
     } catch (err) {

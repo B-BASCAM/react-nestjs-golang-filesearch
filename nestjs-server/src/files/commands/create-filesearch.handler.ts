@@ -9,6 +9,7 @@ import { createFileSearchReqDto, createFileSearchResDto } from '../dto/index';
 import { SearchStatusEnum } from '../enums/searchstatus.enum';
 import { FileSearchCreatedEvent } from '../events/filesearch-created.event';
 
+
 @CommandHandler(CreateFileSearchCommand)
 export class CreateEndpointHandler
     extends AutomapperProfile
@@ -22,6 +23,8 @@ export class CreateEndpointHandler
     ) {
         super(mapper);
     }
+
+
     override get profile() {
 
         return (mapper) => {
@@ -41,6 +44,8 @@ export class CreateEndpointHandler
 
         };
     }
+
+
     async execute(createFileSearchCommand: CreateFileSearchCommand): Promise<any> {
 
         const { createfileSearchReqDto } = createFileSearchCommand;
@@ -48,9 +53,9 @@ export class CreateEndpointHandler
         let fileSearchEntity = this.mapper.map(createfileSearchReqDto, createFileSearchReqDto, FileSearchEntity);
 
         let createdfileSearchEntity = await this.repository.create(fileSearchEntity);
+
         let createfileSearchResDto = this.mapper.map(createdfileSearchEntity, FileSearchEntity, createFileSearchResDto);
 
-        //triggers event-bus to add redis queue
         this.eventBus.publish(
             new FileSearchCreatedEvent(createfileSearchResDto)
         )

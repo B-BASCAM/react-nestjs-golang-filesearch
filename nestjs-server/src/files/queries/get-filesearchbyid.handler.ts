@@ -2,10 +2,12 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { FilesEntityRepository } from '../repository/files-entity.repository';
 import { GetFileSearchByIdQuery } from './get-filesearchbyid.query';
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
-import { beforeMap, afterMap, createMap, Mapper } from '@automapper/core';
+import { afterMap, createMap, Mapper } from '@automapper/core';
 import { showFileSearchResDto } from '../dto/showfilesearchres.dto';
 import { FileSearchEntity } from '../entities/filesearch.entity';
 import { SearchStatusEnum } from '../enums/searchstatus.enum';
+
+
 @QueryHandler(GetFileSearchByIdQuery)
 export class GetFileSearchByIdHandler extends AutomapperProfile
     implements IQueryHandler<GetFileSearchByIdQuery>
@@ -17,7 +19,9 @@ export class GetFileSearchByIdHandler extends AutomapperProfile
         super(mapper);
     }
 
+
     override get profile() {
+
         return (mapper) => {
             createMap(mapper, FileSearchEntity, showFileSearchResDto,
                 afterMap((source, destination) => {
@@ -25,6 +29,8 @@ export class GetFileSearchByIdHandler extends AutomapperProfile
                 }));
         };
     }
+
+
     async execute(query: GetFileSearchByIdQuery) {
 
         const { id } = query;

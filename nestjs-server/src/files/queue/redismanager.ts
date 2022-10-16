@@ -8,6 +8,7 @@ export class RedisManager {
 
     constructor(private readonly configService: ConfigService,) { }
 
+
     async sendMessage(taskName: string, taskData: string[]) {
 
         let client = celery.createClient(
@@ -19,6 +20,7 @@ export class RedisManager {
         client.conf.TASK_PROTOCOL = 1
 
         const task = client.createTask(taskName);
+
         const result = task.applyAsync(taskData).result().then(data => {
             client.disconnect();
         });
