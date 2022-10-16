@@ -8,7 +8,7 @@ export class RedisManager {
 
     constructor(private readonly configService: ConfigService,) { }
 
-    async sendMessage(id: string, requestedFileName: string) {
+    async sendMessage(taskName: string, taskData: string[]) {
 
         let client = celery.createClient(
             this.configService.get('REDIS_BROKER', ''),
@@ -18,8 +18,8 @@ export class RedisManager {
         //gocelery does not support TASK_PROTOCOL=2
         client.conf.TASK_PROTOCOL = 1
 
-        const task = client.createTask("add");
-        const result = task.applyAsync([id, requestedFileName]).result().then(data => {
+        const task = client.createTask(taskName);   //"add"
+        const result = task.applyAsync(taskData).result().then(data => {  //[id, requestedFileName]
             client.disconnect();
         });
 

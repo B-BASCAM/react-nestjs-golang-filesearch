@@ -1,7 +1,8 @@
+import { createFileSearchResDto } from "../dto";
+
 export class FileSearchCreatedEvent {
   constructor(
-    public readonly id: string,
-    public readonly requestedFileName: string,
+    public readonly createfileSearchResDto: createFileSearchResDto,
   ) { }
 }
 

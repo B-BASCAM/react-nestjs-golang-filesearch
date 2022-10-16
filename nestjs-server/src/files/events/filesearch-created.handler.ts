@@ -13,8 +13,11 @@ export class FileSearchCreatedHandler
   ) { }
 
   handle(event: FileSearchCreatedEvent) {
-    const { id, requestedFileName } = event;
-    this.redisManager.sendMessage(id, requestedFileName)
+    const { createfileSearchResDto } = event;
+    const taskName: string = "add";
+    const taskData: string[] = [createfileSearchResDto.id, createfileSearchResDto.requestedFileName];
+
+    this.redisManager.sendMessage(taskName, taskData)
   }
 
 }

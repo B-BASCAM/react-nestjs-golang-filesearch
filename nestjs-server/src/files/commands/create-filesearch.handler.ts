@@ -52,7 +52,7 @@ export class CreateEndpointHandler
 
         //triggers event-bus to add redis queue
         this.eventBus.publish(
-            new FileSearchCreatedEvent(createfileSearchResDto.id, createfileSearchResDto.requestedFileName)
+            new FileSearchCreatedEvent(createfileSearchResDto)
         )
 
         return createfileSearchResDto;
