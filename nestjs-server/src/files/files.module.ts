@@ -8,9 +8,19 @@ import { CommandHandlers } from './commands/index';
 import { EventHandlers } from './events/index';
 import { AutomapperModule } from '@automapper/nestjs';
 import { FilesController } from './files.controller';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CustomCacheManager } from './cache/customcachemanager';
 import { RedisManager } from './queue/redismanager';
+
+
+let redisManager = {
+  useFactory: (configService: ConfigService) => {
+    return new RedisManager(configService.get('REDIS_BROKER', ''),
+      configService.get('REDIS_BACKEND', ''));
+  },
+  provide: RedisManager,
+  inject: [ConfigService]
+}
 
 
 @Module({
@@ -28,7 +38,7 @@ import { RedisManager } from './queue/redismanager';
     ...CommandHandlers,
     ...EventHandlers,
     CustomCacheManager,
-    RedisManager,
+    redisManager,
   ],
 
 })
