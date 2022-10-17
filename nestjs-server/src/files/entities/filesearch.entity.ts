@@ -27,9 +27,9 @@ export class FileSearchEntity {
 
     @AutoMap()
     @Column()
-    createDate: Date;
+    createDate: string;
 
     @AutoMap()
     @Column()
-    lastUpdateDate: Date;
+    lastUpdateDate: string;
 }

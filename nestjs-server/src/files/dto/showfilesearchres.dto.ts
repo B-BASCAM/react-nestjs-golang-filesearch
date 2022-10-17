@@ -22,11 +22,11 @@ export class showFileSearchResDto {
 
     @ApiProperty()
     @AutoMap()
-    createDate: Date;
+    createDate: string;
 
     @ApiProperty()
     @AutoMap()
-    lastUpdateDate: Date;
+    lastUpdateDate: string;
 
     @ApiProperty()
     @AutoMap(() => [String])

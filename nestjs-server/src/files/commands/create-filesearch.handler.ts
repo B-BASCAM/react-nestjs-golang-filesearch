@@ -27,6 +27,7 @@ export class CreateEndpointHandler
 
     override get profile() {
 
+
         return (mapper) => {
             createMap(mapper, FileSearchEntity, createFileSearchResDto,
                 afterMap((source, destination) => {
@@ -36,8 +37,8 @@ export class CreateEndpointHandler
 
             createMap(mapper, createFileSearchReqDto, FileSearchEntity,
                 beforeMap((source, destination) => {
-                    destination.createDate = new Date(),
-                        destination.lastUpdateDate = new Date(),
+                    destination.createDate = new Date().toLocaleString(),
+                        destination.lastUpdateDate = new Date().toLocaleString(),
                         destination.progressPercentage = 0,
                         destination.searchStatus = SearchStatusEnum.New
                 }));
