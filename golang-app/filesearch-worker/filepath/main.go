@@ -21,25 +21,30 @@ func GetFileNames(id string, rootPath string) error {
 			fmt.Println(err)
 			return err
 		}
+
 		if info.IsDir() {
 			return nil
 		}
+
 		count++
+
 		filePaths = append(filePaths, path)
+
 		if intervalCount > 0 && count%intervalCount == 0 {
 			percentage = (count / intervalCount) * intervalPercentage
 			fmt.Println(percentage)
-			//mongoyaz(percentage, filePaths, statuskod:processing, count)
+			//mongoyaz(id, percentage, filePaths, statuskod:processing, count)
 			filePaths = []string{}
 		}
 
 		return nil
 	})
+	
 	if err == nil {
 		//%100 bitti
-		//mongoyaz(100, filePaths,statuskod:end,count)
+		//mongoyaz(id, 100, filePaths,statuskod:end,count)
 	} else {
-		//mongoyaz(percentage, filePaths,statuskod:fail,count)
+		//mongoyaz(,di percentage, filePaths,statuskod:fail,count)
 	}
 
 	return err

@@ -18,16 +18,23 @@ export class RedisManager {
 
     async sendMessage(taskName: string, taskData: string[]) {
 
-        let client = celery.createClient(this.redisBrokerAdr, this.redisBackendAdr)
+        try {
 
-        //gocelery does not support TASK_PROTOCOL=2
-        client.conf.TASK_PROTOCOL = 1
+            let client = celery.createClient(this.redisBrokerAdr, this.redisBackendAdr)
 
-        const task = client.createTask(taskName);
+            //gocelery does not support TASK_PROTOCOL=2
+            client.conf.TASK_PROTOCOL = 1
 
-        const result = task.applyAsync(taskData).result().then(data => {
-            client.disconnect();
-        });
+            const task = client.createTask(taskName);
+
+            const result = task.applyAsync(taskData).result().then(data => {
+                client.disconnect();
+            });
+        } catch (err) {
+            console.log(err)
+        }
+
 
     }
+
 }
