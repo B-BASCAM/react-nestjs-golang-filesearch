@@ -4,7 +4,9 @@ import (
 	"golangapp/golang-app/pkg/model"
 )
 
-var constantDB DB
+var (
+	constantDB DB
+)
 
 func SetDB(db DB) {
 

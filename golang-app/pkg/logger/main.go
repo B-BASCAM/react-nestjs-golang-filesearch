@@ -6,7 +6,9 @@ import (
 	"path/filepath"
 )
 
-var logInstance *log.Logger
+var (
+	logInstance *log.Logger
+)
 
 func GetLogger() *log.Logger {
 

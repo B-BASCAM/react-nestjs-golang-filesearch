@@ -13,8 +13,7 @@ import (
 )
 
 var (
-	db *mongo.Database
-
+	db  *mongo.Database
 	Ctx = context.TODO()
 )
 
