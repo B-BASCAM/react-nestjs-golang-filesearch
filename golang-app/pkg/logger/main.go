@@ -9,6 +9,7 @@ import (
 var logInstance *log.Logger
 
 func GetLogger() *log.Logger {
+
 	return logInstance
 }
 
@@ -29,6 +30,7 @@ func CreateLogger(prefix, fileName string) {
 }
 
 func openCreateLogFile(fileName string) (*os.File, error) {
+
 	file, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0666)
 
 	if err != nil {

@@ -1,4 +1,4 @@
-package repository
+package repositoryinterface
 
 import (
 	"golangapp/golang-app/pkg/model"
@@ -25,4 +25,5 @@ type FileSearchTaskEntityDB interface {
 
 type FileSearchTaskDetailEntityDB interface {
 	Add(m model.FileSearchTaskDetailEntity) error
+	AddMany(m []model.FileSearchTaskDetailEntity) error
 }
