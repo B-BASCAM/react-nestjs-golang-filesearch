@@ -1,34 +1,32 @@
-package usecase
+package service
 
-var redisQueueChannel = make(chan searchTask, 30)
-var workerCount = 15
-var intervalCount int = 0 //sistemdeki tüm dosyaları say 10 ekle; 5'e böl %10 artsın
-var intervalPercentage int = 0
+var (
+	redisQueueChannel  chan searchTask
+	totalWorkerCount   = 1000
+	intervalCount      = 0
+	intervalPercentage = 5
+	rootPath           = "C://"
+)
 
 type searchTask struct {
 	id                string
 	requestedFileName string
 }
 
-func InitializeWorkers() {
+func Initialize() {
 
-	go addChannelFromQueue()
+	initializeSettings()
+
+	go addTasksToChannelFromQueue()
 
 	startWorkers()
 }
 
-func startWorkers() {
-	for i := 0; i < workerCount; i++ {
-		go func() {
-			for {
-				data := <-redisQueueChannel
-				getFileNames(data)
-			}
-		}()
-	}
-}
+func initializeSettings() {
 
-func SetIntervalVariables(count int, percentage int) {
-	intervalCount = count
-	intervalPercentage = percentage
+	setIntervalVariables()
+
+	setTotalWorkerCount()
+
+	createRedisQueueChannel()
 }

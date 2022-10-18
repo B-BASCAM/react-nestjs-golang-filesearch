@@ -1,12 +1,18 @@
-package usecase
+package service
 
 import (
 	"github.com/gocelery/gocelery"
 	"github.com/gomodule/redigo/redis"
 )
 
+// totalgoroutinecount=channelcapacity/2
+func createRedisQueueChannel() {
+
+	redisQueueChannel = make(chan searchTask, totalWorkerCount*2)
+}
+
 // celery "github.com/gocelery/gocelery" ihtiyaç duyar
-func addChannelFromQueue() {
+func addTasksToChannelFromQueue() {
 
 	var counts int = 0
 	// create redis connection pool

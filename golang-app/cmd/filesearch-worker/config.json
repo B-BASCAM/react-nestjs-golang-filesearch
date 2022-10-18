@@ -1,0 +1,9 @@
+{
+    "MONGODB_SERVERURL":"mongodb://admin:admin@127.0.0.1:27017/",
+    "MONGODB_DATABASE":"test",
+    "LOG_PREFIX" :"fw:",
+    "LOG_FILENAME":"fileworker.log",
+    "SEARCH_PATH" :"C://",
+    "GOROUTINE_COUNT" :"1000",
+    "SEARCH_ROOTPATH" :"C://"
+}
