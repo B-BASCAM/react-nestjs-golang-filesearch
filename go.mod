@@ -2,9 +2,19 @@ module golangapp
 
 go 1.19
 
-require go.mongodb.org/mongo-driver v1.10.3
+require (
+	github.com/gomodule/redigo v2.0.0+incompatible
+	go.mongodb.org/mongo-driver v1.10.3
+)
 
 require (
+	github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b // indirect
+	github.com/streadway/amqp v0.0.0-20190827072141-edfb9018d271 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
+)
+
+require (
+	github.com/gocelery/gocelery v0.0.0-20201111034804-825d89059344
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
