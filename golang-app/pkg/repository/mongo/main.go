@@ -2,7 +2,7 @@ package repositorymongo
 
 import (
 	"context"
-	"fmt"
+
 	"golangapp/golang-app/pkg/logger"
 	"golangapp/golang-app/pkg/model"
 	repositoryinterface "golangapp/golang-app/pkg/repository"
@@ -66,8 +66,6 @@ func (entity *DBEntity) Connect() {
 	}
 
 	db = client.Database(entity.DatabaseName)
-
-	fmt.Println(db.Name())
 
 }
 

@@ -30,6 +30,6 @@ func Initialize() {
 
 	repositoryinterface.SetDB(repositorymongo.NewDBEntity(config.GetConfig()["MONGODB_DATABASE"], config.GetConfig()["MONGODB_SERVERURL"]))
 
-	usecase.Dbdb()
+	go usecase.InitializeWorkers()
 
 }
