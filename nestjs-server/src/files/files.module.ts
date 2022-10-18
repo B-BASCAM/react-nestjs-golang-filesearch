@@ -16,8 +16,8 @@ import { FileSearchDetailEntity } from './entities/filesearchdetail.entity';
 
 let redisManager = {
   useFactory: (configService: ConfigService) => {
-    return new RedisManager(configService.get('REDIS_BROKER', ''),
-      configService.get('REDIS_BACKEND', ''));
+    return new RedisManager(configService.get('REDIS_BROKER', 'redis://myredis:6379/0'),
+      configService.get('REDIS_BACKEND', 'redis://myredis:6379/0'));
   },
   provide: RedisManager,
   inject: [ConfigService]
