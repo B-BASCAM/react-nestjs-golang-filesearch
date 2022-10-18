@@ -5,5 +5,6 @@
     "LOG_FILENAME":"fileworker.log",
     "SEARCH_PATH" :"C://",
     "GOROUTINE_COUNT" :"1000",
-    "SEARCH_ROOTPATH" :"C://"
+    "SEARCH_ROOTPATH" :"C://",
+    "REDIS_BROKER":"redis://127.0.0.1:5003"
 }

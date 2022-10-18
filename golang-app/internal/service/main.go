@@ -9,7 +9,7 @@ var (
 )
 
 type searchTask struct {
-	id                string
+	taskId            string
 	requestedFileName string
 }
 

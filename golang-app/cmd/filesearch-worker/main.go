@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	configFile = "internal/config/config.json"
+	configFile = "config.json"
 )
 
 func main() {
