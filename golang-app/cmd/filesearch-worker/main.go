@@ -13,6 +13,15 @@ const (
 	configFile = "internal/config/config.json"
 )
 
+func main() {
+
+	pkg.SetWorkingDirectory()
+
+	go Initialize()
+
+	pkg.WaitForTerminate()
+}
+
 func Initialize() {
 
 	config.FillFromConfigFile(configFile)
@@ -23,13 +32,4 @@ func Initialize() {
 
 	usecase.Dbdb()
 
-}
-
-func main() {
-
-	pkg.SetWorkingDirectory()
-
-	go Initialize()
-
-	pkg.WaitForTerminate()
 }
