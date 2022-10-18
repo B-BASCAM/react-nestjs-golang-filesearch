@@ -9,7 +9,6 @@ import { FileSearchDetailEntity } from './files/entities/filesearchdetail.entity
 
 
 let configModule = ConfigModule.forRoot({
-  // envFilePath: '.env',
   isGlobal: true,
 });
 
@@ -22,10 +21,10 @@ let typeOrmModule = TypeOrmModule.forRootAsync({
   imports: [ConfigModule],
   inject: [ConfigService],
   useFactory: async (configService: ConfigService) => ({
-    url: configService.get('TYPEORM_URL', ''),
+    //url: 'mongodb',
     type: 'mongodb',
-    host: configService.get('TYPEORM_HOST', ''),
-    port: configService.get('TYPEORM_PORT',),
+    host: configService.get('TYPEORM_HOST', 'mongodb'),
+    //  port: configService.get('TYPEORM_PORT',),
     username: 'admin',
     password: 'admin',
     database: 'test',
