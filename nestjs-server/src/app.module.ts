@@ -9,12 +9,14 @@ import { FileSearchDetailEntity } from './files/entities/filesearchdetail.entity
 
 
 let configModule = ConfigModule.forRoot({
+  // envFilePath: '.env',
   isGlobal: true,
 });
 
 let autoMapperModule = AutomapperModule.forRoot({
   strategyInitializer: classes(),
 });
+
 
 let typeOrmModule = TypeOrmModule.forRootAsync({
   imports: [ConfigModule],
