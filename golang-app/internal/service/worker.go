@@ -76,7 +76,7 @@ func searchPathsForFileNames(searchtask searchTask) error {
 
 			currentPercentage = (currentCount / intervalCount) * intervalPercentage
 
-			editTaskAddTaskDetail(searchtask.taskId, currentPercentage, matchedFilePaths, countOfMatchedFiles, 1)
+			editTaskAddTaskDetail(searchtask.taskId, currentPercentage, matchedFilePaths, countOfMatchedFiles, int(model.InProgress))
 
 			matchedFilePaths = []string{}
 		}
@@ -88,11 +88,11 @@ func searchPathsForFileNames(searchtask searchTask) error {
 
 		currentPercentage = 100
 
-		editTaskAddTaskDetail(searchtask.taskId, currentPercentage, matchedFilePaths, countOfMatchedFiles, 2)
+		editTaskAddTaskDetail(searchtask.taskId, currentPercentage, matchedFilePaths, countOfMatchedFiles, int(model.Success))
 
 	} else {
 
-		editTaskAddTaskDetail(searchtask.taskId, currentPercentage, matchedFilePaths, countOfMatchedFiles, 3)
+		editTaskAddTaskDetail(searchtask.taskId, currentPercentage, matchedFilePaths, countOfMatchedFiles, int(model.Fail))
 	}
 
 	return err
