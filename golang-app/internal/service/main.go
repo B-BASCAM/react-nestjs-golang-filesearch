@@ -6,7 +6,6 @@ import (
 	repositoryinterface "golangapp/golang-app/pkg/repository"
 	"os"
 	"path/filepath"
-	"time"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -61,22 +60,31 @@ func SetIntervalVariables(count int, percentage int) {
 }
 
 func Dbdb() {
-	oid, err := primitive.ObjectIDFromHex("634dc4d1cab5cd3c280658c2")
-	aa := model.FileSearchTaskEntity{
-		Id:                  oid,
-		SearchStatus:        1,
-		ProgressPercentage:  40,
-		CountOfMatchedFiles: 100,
-		LastUpdateDate:      time.Now().Format("02.01.2006 15:04:05"),
-	}
-	err = repositoryinterface.GetDB().GetFileSearchTaskEntityDB().Update(aa)
-
 	// oid, err := primitive.ObjectIDFromHex("634dc4d1cab5cd3c280658c2")
-	// aa := model.FileSearchTaskDetailEntity{
-	// 	Searchid:        oid,
-	// 	MatchedFilePath: "aadenemegolang",
+	// aa := model.FileSearchTaskEntity{
+	// 	Id:                  oid,
+	// 	SearchStatus:        1,
+	// 	ProgressPercentage:  40,
+	// 	CountOfMatchedFiles: 100,
+	// 	LastUpdateDate:      time.Now().Format("02.01.2006 15:04:05"),
 	// }
-	// err = repository.GetDB().GetFileSearchTaskDetailEntityDB().Add(aa)
+	// err = repositoryinterface.GetDB().GetFileSearchTaskEntityDB().Update(aa)
+
+	oid, err := primitive.ObjectIDFromHex("634e04cc8ce4c330284c094e")
+	aa := model.FileSearchTaskDetailEntity{
+		Searchid:        oid,
+		MatchedFilePath: "aadenemegolang",
+	}
+	bb := model.FileSearchTaskDetailEntity{
+		Searchid:        oid,
+		MatchedFilePath: "bbdenemegolang",
+	}
+
+	var m []model.FileSearchTaskDetailEntity
+	m = append(m, aa)
+	m = append(m, bb)
+
+	err = repositoryinterface.GetDB().GetFileSearchTaskDetailEntityDB().AddMany(m)
 
 	fmt.Println(err)
 }

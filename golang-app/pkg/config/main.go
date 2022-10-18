@@ -2,18 +2,20 @@ package config
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
 )
 
-var config Config
-
-type Config map[string]string
+var (
+	config Config
+)
 
 func GetConfig() Config {
+
 	return config
 }
+
+type Config map[string]string
 
 func FillFromConfigFile(configFilePath string) {
 
@@ -27,20 +29,10 @@ func FillFromConfigFile(configFilePath string) {
 
 func loadFromFile(entity interface{}, filePath string) {
 
-	_, err := os.Stat(filePath)
-
-	if os.IsNotExist(err) {
-
-		json.Marshal(entity)
-
-		return
-	}
-
 	jsonFile, err := os.Open(filePath)
 
 	if err != nil {
-		fmt.Println(filePath + " file is not readable " + err.Error())
-		return
+		os.Exit(1)
 	}
 
 	defer jsonFile.Close()
@@ -50,6 +42,6 @@ func loadFromFile(entity interface{}, filePath string) {
 	err = json.Unmarshal(values, entity)
 
 	if err != nil {
-		fmt.Println(filePath + " file's content must be valid json " + err.Error())
+		os.Exit(1)
 	}
 }

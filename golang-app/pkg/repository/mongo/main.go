@@ -12,16 +12,26 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-var db *mongo.Database
-var Ctx = context.TODO()
+var (
+	db *mongo.Database
+
+	Ctx = context.TODO()
+)
 
 func NewDBEntity(dataBaseName string, serverUrl string) *DBEntity {
+
 	dbEntity := &DBEntity{}
+
 	dbEntity.FileSearchTaskEntityList = FileSearchTaskEntityDB{}
+
 	dbEntity.FileSearchTaskDetailEntityList = FileSearchTaskDetailEntityDB{}
+
 	dbEntity.ServerUrl = serverUrl
+
 	dbEntity.DatabaseName = dataBaseName
+
 	dbEntity.Connect()
+
 	return dbEntity
 }
 
@@ -65,14 +75,23 @@ func (entity *DBEntity) Connect() {
 type FileSearchTaskEntityDB model.FileSearchTaskEntity
 
 func (f FileSearchTaskEntityDB) Update(m model.FileSearchTaskEntity) error {
+
 	filter := bson.M{}
+
 	filter["_id"] = m.Id
+
 	update := bson.M{}
+
 	options := bson.M{}
+
 	options["searchStatus"] = m.SearchStatus
+
 	options["countOfMatchedFiles"] = m.CountOfMatchedFiles
+
 	options["lastUpdateDate"] = m.LastUpdateDate
+
 	options["progressPercentage"] = m.ProgressPercentage
+
 	update["$set"] = options
 
 	_, err := (db.Collection("filesearchtasks")).UpdateOne(
@@ -80,6 +99,7 @@ func (f FileSearchTaskEntityDB) Update(m model.FileSearchTaskEntity) error {
 		filter,
 		update,
 	)
+
 	return err
 
 }
@@ -94,8 +114,11 @@ func (f FileSearchTaskDetailEntityDB) Add(m model.FileSearchTaskDetailEntity) er
 }
 
 func (f FileSearchTaskDetailEntityDB) AddMany(m []model.FileSearchTaskDetailEntity) error {
+
 	docs := make([]interface{}, len(m))
+
 	for i, s := range m {
+
 		docs[i] = s
 	}
 	_, err := (db.Collection("filesearchtaskdetails")).InsertMany(Ctx, docs)

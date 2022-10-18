@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	usecase "golangapp/golang-app/internal/service"
 	"golangapp/golang-app/pkg"
 	"golangapp/golang-app/pkg/config"
@@ -10,11 +9,13 @@ import (
 	repositorymongo "golangapp/golang-app/pkg/repository/mongo"
 )
 
+const (
+	configFile = "internal/config/config.json"
+)
+
 func Initialize() {
 
-	config.FillFromConfigFile("internal/config/config.json")
-
-	fmt.Println(config.GetConfig()["LOG_PREFIX"])
+	config.FillFromConfigFile(configFile)
 
 	logger.CreateLogger(config.GetConfig()["LOG_PREFIX"], config.GetConfig()["LOG_FILENAME"])
 
