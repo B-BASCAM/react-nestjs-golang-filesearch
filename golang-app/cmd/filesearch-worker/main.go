@@ -28,7 +28,7 @@ func Initialize() {
 
 	logger.CreateLogger(config.GetConfig()["LOG_PREFIX"], config.GetConfig()["LOG_FILENAME"])
 
-	logger.GetLogger().Println("FILE SEARCH SERVICE START")
+	logger.GetLogger().Println("FILE SEARCH SERVICE STARTED")
 
 	repositoryinterface.SetDB(repositorymongodb.NewDBEntity(config.GetConfig()["MONGODB_DATABASE"], config.GetConfig()["MONGODB_SERVERURL"]))
 
