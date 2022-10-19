@@ -1,0 +1,15 @@
+{
+    "MONGODB_SERVERURL":"mongodb://admin:admin@mongodb/",
+    "MONGODB_DATABASE":"test",
+
+    "REDIS_BROKER":"redis://myredis:6379",
+
+    "LOG_PREFIX" :"fw:",
+    "LOG_FILENAME":"fileworker.log",
+
+    "GOROUTINE_COUNT" :"1000",
+    
+    "SEARCH_ROOTPATH" :"C://"
+    
+}
+ 

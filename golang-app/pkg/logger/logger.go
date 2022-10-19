@@ -3,7 +3,6 @@ package logger
 import (
 	"log"
 	"os"
-	"path/filepath"
 )
 
 var (
@@ -17,9 +16,9 @@ func GetLogger() *log.Logger {
 
 func CreateLogger(prefix, fileName string) {
 
-	absFilePath, _ := filepath.Abs("/var/log/golangapp/")
+	//absFilePath, _ := filepath.Abs("/var/log/golangapp/")
 
-	logFileNameWithPath := absFilePath + fileName
+	logFileNameWithPath := fileName //absFilePath +
 
 	file, err := openCreateLogFile(logFileNameWithPath)
 
