@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "1740030b-4f56-40f3-9ee8-c27ddf559f08",
+		"name": "POSTMAN-nestjs-filenamesearch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6576969"
+	},
+	"item": [
+		{
+			"name": "files",
+			"item": [
+				{
+					"name": "createFileSearchRequest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestedFileName\": \"yesyenideneme\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/files",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"files"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "showFileSearchResult",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/files/634af2136d8ca7206c1ea879",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"files",
+								"634af2136d8ca7206c1ea879"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
