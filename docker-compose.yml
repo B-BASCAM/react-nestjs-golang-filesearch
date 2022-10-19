@@ -1,0 +1,25 @@
+version: '1'
+services:
+  mp-redis:
+    container_name: myredis
+    image: redis:latest
+    ports:
+      - "5003:6379"
+    restart: always
+    networks:
+      - mongo-network
+
+  mp-mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: test
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - "27017:27017"
+    networks:
+      - mongo-network
+networks:
+  mongo-network:
