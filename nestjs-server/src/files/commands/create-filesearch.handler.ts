@@ -8,6 +8,7 @@ import { FileSearchEntity } from '../entities/filesearch.entity';
 import { createFileSearchReqDto, createFileSearchResDto } from '../dto/index';
 import { SearchStatusEnum } from '../enums/searchstatus.enum';
 import { FileSearchCreatedEvent } from '../events/filesearch-created.event';
+import { formatDate } from '../helpers';
 
 
 @CommandHandler(CreateFileSearchCommand)
@@ -37,8 +38,8 @@ export class CreateEndpointHandler
 
             createMap(mapper, createFileSearchReqDto, FileSearchEntity,
                 beforeMap((source, destination) => {
-                    destination.createDate = new Date().toLocaleString(),
-                        destination.lastUpdateDate = new Date().toLocaleString(),
+                    destination.createDate = formatDate(new Date()),
+                        destination.lastUpdateDate = formatDate(new Date()),
                         destination.progressPercentage = 0,
                         destination.searchStatus = SearchStatusEnum.New
                 }));
