@@ -21,10 +21,9 @@ let typeOrmModule = TypeOrmModule.forRootAsync({
   imports: [ConfigModule],
   inject: [ConfigService],
   useFactory: async (configService: ConfigService) => ({
-    //url: 'mongodb',
+    //url: 'mongodb+srv://admin:admin@endpointtask.ybdkt8m.mongodb.net/?retryWrites=true&w=majority',
     type: 'mongodb',
     host: configService.get('TYPEORM_HOST', 'mongodb'),
-    //  port: configService.get('TYPEORM_PORT',),
     username: 'admin',
     password: 'admin',
     database: 'test',

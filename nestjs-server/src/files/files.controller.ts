@@ -33,7 +33,7 @@ export class FilesController {
     }
     catch (err) {
 
-      throw new InternalServerErrorException(this.configService.get('ERROR_INTERNALSERVER', '') + ": " + err);
+      throw new InternalServerErrorException(this.configService.get('ERROR_INTERNALSERVER', 'An Unknown Error Occured') + ": " + err);
 
     }
 
@@ -62,7 +62,7 @@ export class FilesController {
       searchResult = this.queryBus.execute(new GetFileSearchByIdQuery(params));
 
       if (!(await searchResult)) {
-        throw new NotFoundException(this.configService.get('ERROR_NOTFOUND', ''));
+        throw new NotFoundException(this.configService.get('ERROR_NOTFOUND', '404 Not Found'));
       }
 
       await this.customCacheManager.addToCache(params.id + params.pageNumber, JSON.stringify(await searchResult), 3000);
@@ -72,7 +72,7 @@ export class FilesController {
       if (err.status) {
         throw err
       } else {
-        throw new InternalServerErrorException(this.configService.get('ERROR_INTERNALSERVER', '') + ": " + err);
+        throw new InternalServerErrorException(this.configService.get('ERROR_INTERNALSERVER', 'An Unknown Error Occured') + ": " + err);
       }
     }
 
@@ -90,7 +90,7 @@ export class FilesController {
 
     } catch {
 
-      throw new BadRequestException(this.configService.get('ERROR_OBJECTID', ''))
+      throw new BadRequestException(this.configService.get('ERROR_OBJECTID', ' Invalid Argument: id must be an ObjectID'))
     }
   }
 
