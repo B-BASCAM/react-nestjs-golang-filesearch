@@ -36,7 +36,7 @@
 - Inserted id is returned to user as server response.
 - Search directory and the count of goroutines that will work simultaneously must be decided before the GoApp start to work.
 - On start, GoApp firstly walks through the search directory and all subdirectories/files (except non permissioned ones) to decide
-  percentage increment rate. This operation may take time according to total count of files and directories.
+  percentage increment rate. **This operation may take time according to total count of files and directories.**
 - GoApp listens Redis Queue and puts the data to a buffered go channel. Buffered channel's capacity is twice of total goroutines count.
 - When percentage increment rate is determined, N goroutines start to listen buffered channel.
 - Goroutines take the task from channel, walk through the paths/files and update/insert mongoDB collections simultaneously. They never block each other.
@@ -48,7 +48,7 @@
 - Whenever a goroutine finishes its work, it again starts to listen the buffered channel, this continues as a loop through the main goroutines life time.
 - Multiple search requests are processed simultaneously.
 - User can track the flow by making GET requests to NestjsApp with a task id (id that was sent as the POST operation's response) and a page number. 
-  For pagination and performance issues, max up to 50 results are shown per request.
+  For pagination and performance issues, max up to 50 results are shown per request. Also a custom cache manager is used for GET requests.
   
   
   
@@ -76,6 +76,8 @@ $ go mod download
 $ go build -o .\golang-app\bin\  .\golang-app\cmd\filesearch-worker\. 
 
 # Run GoApp                                   (PS ....nestjs-golang-filesearch>)
+# Be patient. This may take time. (For 1.000.000 files/folder it took 4 minutes in my PC)
+# When goroutines start to work, "GOROUTINES ARE RUNNING" message will be on the log file.   (PS ....nestjs-golang-filesearch\golang-app\bin\fileworker.log>)
 $ .\golang-app\bin\filesearch-worker 
 
 # Open New Terminal
