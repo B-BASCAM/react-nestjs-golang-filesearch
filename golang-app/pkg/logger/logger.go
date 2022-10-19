@@ -28,6 +28,8 @@ func CreateLogger(prefix, fileName string) {
 
 	logInstance = log.New(file, prefix, log.Ldate|log.Ltime|log.Lshortfile)
 
+	GetLogger().Println("FILE SEARCH SERVICE START")
+
 }
 
 func openCreateLogFile(fileName string) (*os.File, error) {
