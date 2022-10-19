@@ -17,7 +17,7 @@ RUN go mod download
 # Copy the code into the container
 COPY ./golang-app/ ./golang-app/
 
-# TODORun test
+# TODO Run test
 #RUN go test ./...
 
 # Build the application
