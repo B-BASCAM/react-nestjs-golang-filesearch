@@ -35,7 +35,7 @@ RUN cp /build/main .
 FROM scratch
 
 COPY --from=builder /dist/main /
-COPY ./golang-app/internal/config/dockerconfig/config.json /
+COPY ./golang-app/bin/config.docker.json /config.json
 
 # Command to run the executable
 ENTRYPOINT ["/main"]

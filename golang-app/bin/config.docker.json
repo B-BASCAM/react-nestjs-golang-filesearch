@@ -9,7 +9,7 @@
 
     "GOROUTINE_COUNT" :"1000",
     
-    "SEARCH_ROOTPATH" :"C://"
+    "SEARCH_ROOTPATH" :"/home"
     
 }
  
