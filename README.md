@@ -6,4 +6,4 @@
 ![Nestjs Version](https://img.shields.io/badge/golang-1.19-yellowgreen) 
 
 
-![ScreenShot](assets/img/filenamesearchsystem.png)
+![ScreenShot](assets/img/system.png)
