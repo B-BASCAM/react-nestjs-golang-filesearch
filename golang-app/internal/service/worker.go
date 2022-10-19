@@ -16,6 +16,8 @@ import (
 
 func startWorkers() {
 
+	logger.GetLogger().Println("GOROUTINES ARE RUNNING")
+
 	for i := 0; i < totalWorkerCount; i++ {
 
 		go func() {
