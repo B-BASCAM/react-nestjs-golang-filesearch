@@ -8,16 +8,16 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { FileSearchDetailEntity } from './files/entities/filesearchdetail.entity';
 
 
-let configModule = ConfigModule.forRoot({
+const configModule = ConfigModule.forRoot({
   isGlobal: true,
 });
 
-let autoMapperModule = AutomapperModule.forRoot({
+const autoMapperModule = AutomapperModule.forRoot({
   strategyInitializer: classes(),
 });
 
 
-let typeOrmModule = TypeOrmModule.forRootAsync({
+const typeOrmModule = TypeOrmModule.forRootAsync({
   imports: [ConfigModule],
   inject: [ConfigService],
   useFactory: async (configService: ConfigService) => ({

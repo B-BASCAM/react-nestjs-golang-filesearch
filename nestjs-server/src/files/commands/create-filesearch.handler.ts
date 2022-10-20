@@ -52,11 +52,11 @@ export class CreateEndpointHandler
 
         const { createfileSearchReqDto } = createFileSearchCommand;
 
-        let fileSearchEntity = this.mapper.map(createfileSearchReqDto, createFileSearchReqDto, FileSearchEntity);
+        const fileSearchEntity = this.mapper.map(createfileSearchReqDto, createFileSearchReqDto, FileSearchEntity);
 
-        let createdfileSearchEntity = await this.repository.create(fileSearchEntity);
+        const createdfileSearchEntity = await this.repository.create(fileSearchEntity);
 
-        let createfileSearchResDto = this.mapper.map(createdfileSearchEntity, FileSearchEntity, createFileSearchResDto);
+        const createfileSearchResDto = this.mapper.map(createdfileSearchEntity, FileSearchEntity, createFileSearchResDto);
 
         this.eventBus.publish(
             new FileSearchCreatedEvent(createfileSearchResDto)

@@ -20,7 +20,7 @@ export class RedisManager {
 
         try {
 
-            let client = celery.createClient(this.redisBrokerAdr, this.redisBackendAdr)
+            const client = celery.createClient(this.redisBrokerAdr, this.redisBackendAdr)
 
             client.conf.TASK_PROTOCOL = 1
 

@@ -14,7 +14,7 @@ import { RedisManager } from './queue/redismanager';
 import { FileSearchDetailEntity } from './entities/filesearchdetail.entity';
 
 
-let redisManager = {
+const redisManager = {
   useFactory: (configService: ConfigService) => {
     return new RedisManager(configService.get('REDIS_BROKER', 'redis://myredis:6379/0'),
       configService.get('REDIS_BACKEND', 'redis://myredis:6379/0'));
