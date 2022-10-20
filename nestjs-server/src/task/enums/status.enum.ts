@@ -4,11 +4,5 @@ export enum statusEnum {
 
     Processing = "processing",
 
-    PartiallyCompleted = "partially completed",
-
-    CompletedWıthErrors = "completed with errors",
-
-    Completed = "completed",
-
-    Failed = "failed"
+    Completed = "completed"
 }
