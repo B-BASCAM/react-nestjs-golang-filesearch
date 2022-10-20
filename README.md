@@ -29,12 +29,13 @@
 
 
 ## Work Flow
+**(**Predefine)**
+Search directory and the count of goroutines that will work simultaneously must be decided ( [How To Use](#how-to-use) Step-5) before the GoApp start to work.
 
 - User creates a task by making a POST request to NestJSApp.
 - Command Handler adds requestedFileName to the MongoDB's filesearchtasks collection and gets inserted id.
 - Event Handler adds requestedFileName and inserted id to Redis Queue.
 - Inserted id is returned to user as server response.
-- Search directory and the count of goroutines that will work simultaneously must be decided before the GoApp start to work.
 - On start, GoApp firstly walks through the search directory and all subdirectories/files (except non permissioned ones) to decide
   percentage increment rate. **This operation may take time according to total count of files and directories.**
 - GoApp listens Redis Queue and puts the data to a buffered go channel. Buffered channel's capacity is twice of total goroutines count.
@@ -57,38 +58,38 @@
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) and [Golang](https://go.dev/dl/) installed on your computer. From your command line:
 
 ```bash
-# Clone this repository
+# 1) Clone this repository
 $ git clone https://github.com/CaganPamir/nestjs-golang-filesearch.git
 
-# Go into the repository
+# 2) Go into the repository
 $ cd nestjs-golang-filesearch
 
-# Run Redis and MongoDB                       (PS ....nestjs-golang-filesearch>)
+# 3) Run Redis and MongoDB                       (PS ....nestjs-golang-filesearch>)
 $ docker-compose -f docker-compose.yml up -d  
 
-# Install dependencies for GoApp              (PS ....nestjs-golang-filesearch>)
+# 4) Install dependencies for GoApp              (PS ....nestjs-golang-filesearch>)
 $ go mod download
 
-# Open config.json                            (PS ....nestjs-golang-filesearch\golang-app\bin>)     
+# 5) Open config.json                            (PS ....nestjs-golang-filesearch\golang-app\bin>)     
 # Set the search directory (SEARCH_ROOTPATH) and count of goroutines that will work simultaneously (GOROUTINE_COUNT)
 
-# Build the GoApp                             (PS ....nestjs-golang-filesearch>)
+# 6) Build the GoApp                             (PS ....nestjs-golang-filesearch>)
 $ go build -o .\golang-app\bin\  .\golang-app\cmd\filesearch-worker\. 
 
-# Run GoApp                                   (PS ....nestjs-golang-filesearch>)
+# 7) Run GoApp                                   (PS ....nestjs-golang-filesearch>)
 # Be patient. This may take time. (For 1.000.000 files/folder it took 4 minutes in my PC)
 # When goroutines start to work, "GOROUTINES ARE RUNNING" message will be on the log file.   (PS ....nestjs-golang-filesearch\golang-app\bin\fileworker.log>)
 $ .\golang-app\bin\filesearch-worker 
 
-# Open New Terminal
+# 8) Open New Terminal
 # Go into the nest project                    (PS ....nestjs-golang-filesearch>)
 $ cd nestjs-server 
 
-# Install dependencies                        (PS ....nestjs-golang-filesearch\nestjs-server>)
+# 9) Install dependencies                        (PS ....nestjs-golang-filesearch\nestjs-server>)
 $ npm install -g  @nestjs/cli
 $ npm install 
 
-# Run NestJSApp                                (PS ....nestjs-golang-filesearch\nestjs-server>)
+# 10) Run NestJSApp                                (PS ....nestjs-golang-filesearch\nestjs-server>)
 $ npm run start:dev
 
 ```
