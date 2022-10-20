@@ -1,11 +1,11 @@
-package repositorymongodb
+package repositoryMongoDB
 
 import (
 	"context"
 
 	"golangapp/golang-app/pkg/logger"
 	"golangapp/golang-app/pkg/model"
-	repositoryinterface "golangapp/golang-app/pkg/repository"
+	repositoryInterface "golangapp/golang-app/pkg/repository"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -21,9 +21,9 @@ func NewDBEntity(dataBaseName string, serverUrl string) *DBEntity {
 
 	dbEntity := &DBEntity{}
 
-	dbEntity.FileSearchTaskEntityList = FileSearchTaskEntityDB{}
+	dbEntity.TaskEntityList = TaskEntityDB{}
 
-	dbEntity.FileSearchTaskDetailEntityList = FileSearchTaskDetailEntityDB{}
+	dbEntity.TaskDetailEntityList = TaskDetailEntityDB{}
 
 	dbEntity.ServerUrl = serverUrl
 
@@ -35,18 +35,18 @@ func NewDBEntity(dataBaseName string, serverUrl string) *DBEntity {
 }
 
 type DBEntity struct {
-	FileSearchTaskEntityList       FileSearchTaskEntityDB
-	FileSearchTaskDetailEntityList FileSearchTaskDetailEntityDB
-	ServerUrl                      string
-	DatabaseName                   string
+	TaskEntityList       TaskEntityDB
+	TaskDetailEntityList TaskDetailEntityDB
+	ServerUrl            string
+	DatabaseName         string
 }
 
-func (entity *DBEntity) GetFileSearchTaskEntityDB() repositoryinterface.FileSearchTaskEntityDB {
-	return entity.FileSearchTaskEntityList
+func (entity *DBEntity) GetTaskEntityDB() repositoryInterface.TaskEntityDB {
+	return entity.TaskEntityList
 }
 
-func (entity *DBEntity) GetFileSearchTaskDetailEntityDB() repositoryinterface.FileSearchTaskDetailEntityDB {
-	return entity.FileSearchTaskDetailEntityList
+func (entity *DBEntity) GetTaskDetailEntityDB() repositoryInterface.TaskDetailEntityDB {
+	return entity.TaskDetailEntityList
 }
 
 func (entity *DBEntity) Connect() {
@@ -69,9 +69,9 @@ func (entity *DBEntity) Connect() {
 
 }
 
-type FileSearchTaskEntityDB model.FileSearchTaskEntity
+type TaskEntityDB model.TaskEntity
 
-func (f FileSearchTaskEntityDB) Update(m model.FileSearchTaskEntity) error {
+func (f TaskEntityDB) Update(m model.TaskEntity) error {
 
 	filter := bson.M{}
 
@@ -81,17 +81,19 @@ func (f FileSearchTaskEntityDB) Update(m model.FileSearchTaskEntity) error {
 
 	options := bson.M{}
 
-	options["searchStatus"] = m.SearchStatus
+	options["status"] = m.Status
 
 	options["countOfMatchedFiles"] = m.CountOfMatchedFiles
 
-	options["lastUpdateDate"] = m.LastUpdateDate
+	options["updateAt"] = m.UpdateAt
 
 	options["progressPercentage"] = m.ProgressPercentage
 
+	options["result"] = m.Result
+
 	update["$set"] = options
 
-	_, err := (db.Collection("filesearchtasks")).UpdateOne(
+	_, err := (db.Collection("tasks")).UpdateOne(
 		Ctx,
 		filter,
 		update,
@@ -101,16 +103,9 @@ func (f FileSearchTaskEntityDB) Update(m model.FileSearchTaskEntity) error {
 
 }
 
-type FileSearchTaskDetailEntityDB model.FileSearchTaskDetailEntity
+type TaskDetailEntityDB model.TaskDetailEntity
 
-func (f FileSearchTaskDetailEntityDB) Add(m model.FileSearchTaskDetailEntity) error {
-
-	_, err := (db.Collection("filesearchtaskdetails")).InsertOne(Ctx, m)
-
-	return err
-}
-
-func (f FileSearchTaskDetailEntityDB) AddMany(m []model.FileSearchTaskDetailEntity) error {
+func (f TaskDetailEntityDB) AddMany(m []model.TaskDetailEntity) error {
 
 	docs := make([]interface{}, len(m))
 
@@ -118,7 +113,7 @@ func (f FileSearchTaskDetailEntityDB) AddMany(m []model.FileSearchTaskDetailEnti
 
 		docs[i] = s
 	}
-	_, err := (db.Collection("filesearchtaskdetails")).InsertMany(Ctx, docs)
+	_, err := (db.Collection("taskDetails")).InsertMany(Ctx, docs)
 
 	return err
 }

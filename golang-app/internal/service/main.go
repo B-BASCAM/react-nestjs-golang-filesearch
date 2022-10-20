@@ -1,14 +1,14 @@
 package service
 
 var (
-	redisQueueChannel  chan searchTask
+	redisQueueChannel  chan SearchTask
 	totalWorkerCount   = 1000
 	intervalCount      = 0
 	intervalPercentage = 5
 	rootPath           = "C://"
 )
 
-type searchTask struct {
+type SearchTask struct {
 	taskId            string
 	requestedFileName string
 }

@@ -4,7 +4,7 @@ import (
 	"golangapp/golang-app/pkg/config"
 	"golangapp/golang-app/pkg/logger"
 	"golangapp/golang-app/pkg/model"
-	repositoryinterface "golangapp/golang-app/pkg/repository"
+	repositoryInterface "golangapp/golang-app/pkg/repository"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -46,13 +46,14 @@ func setTotalWorkerCount() {
 
 }
 
-func searchPathsForFileNames(searchtask searchTask) error {
+func searchPathsForFileNames(searchTask SearchTask) error {
 
 	var (
 		currentCount        int = 0
 		matchedFilePaths    []string
-		currentPercentage   int = 0
-		countOfMatchedFiles int = 0
+		currentPercentage   int    = 0
+		countOfMatchedFiles int    = 0
+		taskResult          string = string(model.Error)
 	)
 
 	err := filepath.Walk(rootPath, func(path string, info os.FileInfo, err error) error {
@@ -67,7 +68,7 @@ func searchPathsForFileNames(searchtask searchTask) error {
 
 		currentCount = currentCount + 1
 
-		if strings.Contains(path, searchtask.requestedFileName) {
+		if strings.Contains(path, searchTask.requestedFileName) {
 
 			countOfMatchedFiles = countOfMatchedFiles + 1
 
@@ -78,7 +79,7 @@ func searchPathsForFileNames(searchtask searchTask) error {
 
 			currentPercentage = (currentCount / intervalCount) * intervalPercentage
 
-			editTaskAddTaskDetail(searchtask.taskId, currentPercentage, matchedFilePaths, countOfMatchedFiles, int(model.InProgress))
+			editTaskAddTaskDetail(searchTask.taskId, currentPercentage, matchedFilePaths, countOfMatchedFiles, string(model.Processing), "")
 
 			matchedFilePaths = []string{}
 		}
@@ -87,68 +88,62 @@ func searchPathsForFileNames(searchtask searchTask) error {
 	})
 
 	if err == nil {
-
+		taskResult = string(model.Success)
 		currentPercentage = 100
-
-		editTaskAddTaskDetail(searchtask.taskId, currentPercentage, matchedFilePaths, countOfMatchedFiles, int(model.Success))
-
-	} else {
-
-		editTaskAddTaskDetail(searchtask.taskId, currentPercentage, matchedFilePaths, countOfMatchedFiles, int(model.Fail))
 	}
+
+	editTaskAddTaskDetail(searchTask.taskId, currentPercentage, matchedFilePaths, countOfMatchedFiles, string(model.Completed), taskResult)
 
 	return err
 }
 
-func editTaskAddTaskDetail(taskID string, currentPercentage int, matchedFilePaths []string, countOfMatchedFiles int, statusCode int) {
+func editTaskAddTaskDetail(taskID string, currentPercentage int, matchedFilePaths []string, countOfMatchedFiles int, status string, result string) {
 
 	castedTaskId, err := primitive.ObjectIDFromHex(taskID)
 
 	if err != nil {
-
 		logger.GetLogger().Println(err)
-
 		return
 	}
 
-	go editTask(castedTaskId, currentPercentage, countOfMatchedFiles, statusCode)
+	go editTask(castedTaskId, currentPercentage, countOfMatchedFiles, status, result)
 
 	if len(matchedFilePaths) > 0 {
-
 		go addTaskDetail(castedTaskId, matchedFilePaths)
 	}
 
 }
 
-func addTaskDetail(searchID primitive.ObjectID, matchedFilePaths []string) {
+func addTaskDetail(taskId primitive.ObjectID, matchedFilePaths []string) {
 
-	var sliceFileSearchTaskDetailEntity []model.FileSearchTaskDetailEntity
+	var taskDetailEntityList []model.TaskDetailEntity
 
 	for _, pathName := range matchedFilePaths {
-		sliceFileSearchTaskDetailEntity = append(sliceFileSearchTaskDetailEntity, model.FileSearchTaskDetailEntity{
-			Searchid:        searchID,
+		taskDetailEntityList = append(taskDetailEntityList, model.TaskDetailEntity{
+			TaskId:          taskId,
 			MatchedFilePath: pathName,
 		})
 	}
 
-	err := repositoryinterface.GetDB().GetFileSearchTaskDetailEntityDB().AddMany(sliceFileSearchTaskDetailEntity)
+	err := repositoryInterface.GetDB().GetTaskDetailEntityDB().AddMany(taskDetailEntityList)
 
 	if err != nil {
 		logger.GetLogger().Println(err)
 	}
 }
 
-func editTask(taskId primitive.ObjectID, currentPercentage int, countOfMatchedFiles int, statusCode int) {
+func editTask(taskId primitive.ObjectID, currentPercentage int, countOfMatchedFiles int, status string, result string) {
 
-	fileSearchTaskEntity := model.FileSearchTaskEntity{
+	taskEntity := model.TaskEntity{
 		Id:                  taskId,
-		SearchStatus:        statusCode,
+		Status:              status,
 		ProgressPercentage:  currentPercentage,
 		CountOfMatchedFiles: countOfMatchedFiles,
-		LastUpdateDate:      time.Now().Format("02.01.2006 15:04:05"),
+		UpdateAt:            time.Now().Format("02.01.2006 15:04:05"),
+		Result:              result,
 	}
 
-	err := repositoryinterface.GetDB().GetFileSearchTaskEntityDB().Update(fileSearchTaskEntity)
+	err := repositoryInterface.GetDB().GetTaskEntityDB().Update(taskEntity)
 
 	if err != nil {
 		logger.GetLogger().Println(err)

@@ -32,39 +32,40 @@ func setIntervalVariables() {
 		logger.GetLogger().Fatal(err)
 	}
 
-	if count > 10000000 {
+	switch totalCount := count; {
+
+	case totalCount > 10000000:
 		intervalCount = count / 100
 		intervalPercentage = 1
-	} else if count > 1000000 {
+	case totalCount > 1000000:
 		intervalCount = count / 50
 		intervalPercentage = 2
-	} else if count > 500000 {
+	case totalCount > 500000:
 		intervalCount = count / 33
 		intervalPercentage = 3
-	} else if count > 150000 {
+	case totalCount > 150000:
 		intervalCount = count / 25
 		intervalPercentage = 4
-	} else if count > 100000 {
+	case totalCount > 100000:
 		intervalCount = count / 20
 		intervalPercentage = 5
-	} else if count > 50000 {
+	case totalCount > 50000:
 		intervalCount = count / 10
 		intervalPercentage = 10
-	} else if count > 30000 {
+	case totalCount > 30000:
 		intervalCount = count / 8
 		intervalPercentage = 12
-	} else if count > 10000 {
+	case totalCount > 10000:
 		intervalCount = count / 5
 		intervalPercentage = 20
-	} else if count > 2500 {
+	case totalCount > 2500:
 		intervalCount = count / 3
 		intervalPercentage = 33
-	} else if count > 500 {
+	case totalCount > 500:
 		intervalCount = count / 2
 		intervalPercentage = 50
-	} else {
+	default:
 		intervalCount = count + 1
 		intervalPercentage = 100
 	}
-
 }

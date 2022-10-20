@@ -4,8 +4,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-type FileSearchTaskDetailEntity struct {
+type TaskDetailEntity struct {
 	Id              primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
-	Searchid        primitive.ObjectID `bson:"searchid,omitempty" json:"searchid,omitempty"`
+	TaskId          primitive.ObjectID `bson:"taskId,omitempty" json:"taskId,omitempty"`
 	MatchedFilePath string             `bson:"matchedFilePath,omitempty" json:"matchedFilePath,omitempty"`
 }

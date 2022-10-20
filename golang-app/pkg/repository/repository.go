@@ -19,16 +19,15 @@ func GetDB() DB {
 }
 
 type DB interface {
-	GetFileSearchTaskEntityDB() FileSearchTaskEntityDB
-	GetFileSearchTaskDetailEntityDB() FileSearchTaskDetailEntityDB
+	GetTaskEntityDB() TaskEntityDB
+	GetTaskDetailEntityDB() TaskDetailEntityDB
 	Connect()
 }
 
-type FileSearchTaskEntityDB interface {
-	Update(m model.FileSearchTaskEntity) error
+type TaskEntityDB interface {
+	Update(m model.TaskEntity) error
 }
 
-type FileSearchTaskDetailEntityDB interface {
-	Add(m model.FileSearchTaskDetailEntity) error
-	AddMany(m []model.FileSearchTaskDetailEntity) error
+type TaskDetailEntityDB interface {
+	AddMany(m []model.TaskDetailEntity) error
 }

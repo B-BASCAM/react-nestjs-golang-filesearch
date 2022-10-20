@@ -9,7 +9,7 @@ import (
 
 func createRedisQueueChannel() {
 
-	redisQueueChannel = make(chan searchTask, totalWorkerCount*2)
+	redisQueueChannel = make(chan SearchTask, totalWorkerCount*2)
 }
 
 func addTasksToChannelFromQueue() {
@@ -36,9 +36,9 @@ func addTasksToChannelFromQueue() {
 
 		counts = counts + 1
 
-		searchtask := searchTask{taskId: taskId, requestedFileName: requestedFileName}
+		searchTask := SearchTask{taskId: taskId, requestedFileName: requestedFileName}
 
-		redisQueueChannel <- searchtask
+		redisQueueChannel <- searchTask
 
 		return "0"
 
