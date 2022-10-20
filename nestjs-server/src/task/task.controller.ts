@@ -1,10 +1,12 @@
-import { Body, Controller, Get, Param, Post, NotFoundException, InternalServerErrorException, Header, BadRequestException } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, NotFoundException, InternalServerErrorException, Header, BadRequestException, Put } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiCreatedResponse } from '@nestjs/swagger';
-import { CreateTaskReqDto, ShowTaskDetailReqDto, CreateTaskResDto, ShowTaskDetailResDto } from './dto/index';
+import { CreateTaskReqDto, ShowTaskDetailReqDto, CreateTaskResDto, ShowTaskDetailResDto, UpdateTaskReqDto, CreateTaskDetailReqDto } from './dto/index';
 import { GetTaskDetailByIdQuery } from './queries/getTaskDetailsById.query';
 import { CreateTaskCommand } from './commands/createTask.command';
 import { ConfigService } from '@nestjs/config';
+import { UpdateTaskCommand } from './commands/updateTask.command';
+import { CreateTaskDetailCommand } from './commands/CreateTaskDetail.command';
 
 @Controller('tasks')
 export class FilesController {
@@ -16,7 +18,7 @@ export class FilesController {
   ) { }
 
   @ApiCreatedResponse({ type: CreateTaskResDto })
-  @Post()
+  @Post('createTask')
   async createTask(@Body() params: CreateTaskReqDto): Promise<CreateTaskResDto> {
 
     let createTaskResDto: Promise<CreateTaskResDto>;
@@ -31,31 +33,44 @@ export class FilesController {
     return createTaskResDto;
   }
 
-  @ApiCreatedResponse({ type: ShowTaskDetailResDto })
-  @Get('/:id/:pageNumber')
+  @Get('showTaskDetail/:id/:pageNumber')
   async showTaskDetail(@Param() params: ShowTaskDetailReqDto): Promise<ShowTaskDetailResDto> {
 
     let showTaskDetailResDto: Promise<ShowTaskDetailResDto>
 
     try {
       showTaskDetailResDto = this.queryBus.execute(new GetTaskDetailByIdQuery(params));
-
-      if (!(await showTaskDetailResDto)) {
-        throw new NotFoundException(this.configService.get('ERROR_NOTFOUND', '404 Not Found'));
-      }
     } catch (err) {
-      throw new InternalServerErrorException(this.configService.get('ERROR_INTERNALSERVER', 'An Unknown Error Occured'));
+      throw new InternalServerErrorException(this.configService.get('ERROR_INTERNALSERVER', 'An Unknown Error Occured') + ": " + err);
+    }
+
+    if (!(await showTaskDetailResDto)) {
+      throw new NotFoundException(this.configService.get('ERROR_NOTFOUND', '404 Not Found'));
     }
 
     return showTaskDetailResDto;
   }
 
+  @Put('updateTask')
+  async updateTask(@Body() params: UpdateTaskReqDto): Promise<any> {
 
-  controlObjectIdParam(params: ShowTaskDetailReqDto) {
+    try {
+      return this.commandBus.execute(new UpdateTaskCommand(params));
+    } catch (err) {
+      throw new InternalServerErrorException(this.configService.get('ERROR_INTERNALSERVER', 'An Unknown Error Occured') + ": " + err);
+    }
+  }
 
-    const { ObjectID } = require('mongodb').ObjectId;
+  @ApiCreatedResponse()
+  @Post('createTaskDetail')
+  async createTaskDetail(@Body() params: CreateTaskDetailReqDto[]): Promise<any> {
 
-    params.id = ObjectID(params.id)
+    try {
+      return this.commandBus.execute(new CreateTaskDetailCommand(params))
+    }
+    catch (err) {
+      throw new InternalServerErrorException(this.configService.get('ERROR_INTERNALSERVER', 'An Unknown Error Occured') + ": " + err);
+    }
   }
 
 }

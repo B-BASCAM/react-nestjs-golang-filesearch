@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MongoRepository, ObjectID } from 'typeorm';
+import { MongoRepository, ObjectID, ObjectLiteral } from 'typeorm';
 import { MongoFindManyOptions } from 'typeorm/find-options/mongodb/MongoFindManyOptions';
 import { TaskEntity } from '../entities/task.entity';
 import { TaskDetailEntity } from '../entities/taskDetail.entity';
@@ -15,20 +15,31 @@ export class TasksEntityRepository {
     private readonly taskDetailRepository: MongoRepository<TaskDetailEntity>,
   ) { }
 
-  async create(TaskEntity: TaskEntity): Promise<TaskEntity> {
+  async createTask(TaskEntity: TaskEntity): Promise<TaskEntity> {
 
     const result = await this.taskRepository.insert(TaskEntity);
 
-    return this.taskRepository.findOneBy(result.identifiers[0].id);
+    return await this.taskRepository.findOneBy(result.identifiers[0].id);
   }
 
-  async findById(id: ObjectID): Promise<TaskEntity> {
+  async findTaskById(id: ObjectID): Promise<TaskEntity> {
 
-    return this.taskRepository.findOneBy(id);
+    return await this.taskRepository.findOneBy(id);
   }
 
-  async findByTaskId(options: MongoFindManyOptions): Promise<TaskDetailEntity[]> {
+  async findTaskDetailByTaskId(options: MongoFindManyOptions): Promise<TaskDetailEntity[]> {
 
-    return this.taskDetailRepository.find(options);
+    return await this.taskDetailRepository.find(options);
   }
+
+  async updateOneTask(query: ObjectLiteral, update: ObjectLiteral): Promise<any> {
+
+    return await this.taskRepository.updateOne(query, update);
+  }
+
+  async createManyTaskDetail(taskDetailEntityList: TaskDetailEntity[]): Promise<any> {
+
+    return await this.taskRepository.insert(taskDetailEntityList);
+  }
+
 }

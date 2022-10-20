@@ -10,7 +10,6 @@ import { statusEnum } from '../enums/status.enum';
 import { TaskCreatedEvent } from '../events/taskCreated.event';
 import { formatDate } from '../helpers/formatDate';
 
-
 @CommandHandler(CreateTaskCommand)
 export class CreateTaskHandler
     extends AutomapperProfile
@@ -48,7 +47,7 @@ export class CreateTaskHandler
 
         const taskEntity = this.mapper.map(createTaskReqDto, CreateTaskReqDto, TaskEntity);
 
-        const createdTaskEntity = await this.repository.create(taskEntity);
+        const createdTaskEntity = await this.repository.createTask(taskEntity);
 
         const createTaskResDto = this.mapper.map(createdTaskEntity, TaskEntity, CreateTaskResDto);
 

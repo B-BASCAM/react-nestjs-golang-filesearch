@@ -41,7 +41,7 @@ export class GetTaskDetailByIdHandler extends AutomapperProfile
             return JSON.parse(cachedValue);
         }
 
-        const taskEntitys = await this.repository.findById(showTaskDetailReqDto.id);
+        const taskEntitys = await this.repository.findTaskById(showTaskDetailReqDto.id);
 
         const showTaskDetailResDto = this.mapper.map(taskEntitys, TaskEntity, ShowTaskDetailResDto);
 
@@ -51,7 +51,7 @@ export class GetTaskDetailByIdHandler extends AutomapperProfile
 
             const options = { where: { searchid: showTaskDetailReqDto.id }, skip: skipNumber, take: 50 }
 
-            const taskDetailEntity = await this.repository.findByTaskId(options);
+            const taskDetailEntity = await this.repository.findTaskDetailByTaskId(options);
 
             const matchedFilePath = taskDetailEntity.map(o => o.matchedFilePath)
 
