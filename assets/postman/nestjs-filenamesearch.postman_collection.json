@@ -7,16 +7,16 @@
 	},
 	"item": [
 		{
-			"name": "files",
+			"name": "tasks",
 			"item": [
 				{
-					"name": "createFileSearchRequest",
+					"name": "createTask",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"requestedFileName\": \"filesearchdetail.entity\"\r\n}",
+							"raw": "{\r\n    \"requestedFileName\": \"walk\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,34 +24,36 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/files",
+							"raw": "http://localhost:3000/tasks/createTask",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"files"
+								"tasks",
+								"createTask"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "showFileSearchResult",
+					"name": "showTaskDetail",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/files/634fe03a046ba612f8c4e0e9/1",
+							"raw": "http://localhost:3000/tasks/showTaskDetail/63521b6ed17dd40e94f2af81/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"files",
-								"634fe03a046ba612f8c4e0e9",
+								"tasks",
+								"showTaskDetail",
+								"63521b6ed17dd40e94f2af81",
 								"1"
 							]
 						}
