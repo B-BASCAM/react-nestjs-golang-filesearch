@@ -20,7 +20,7 @@ export class RedisManager {
             const task = client.createTask(taskName);
             task.applyAsync(taskData)
         } catch (err) {
-            console.log(err)
+
         }
     }
 

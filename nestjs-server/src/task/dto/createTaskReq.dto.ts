@@ -4,7 +4,7 @@ import { Length } from 'class-validator';
 
 export class CreateTaskReqDto {
 
-    @Length(1, 100)
+    @Length(1, 1000)
     @ApiProperty()
     @AutoMap()
     requestedFileName: string;

@@ -6,7 +6,7 @@ export class ShowTaskDetailReqDto {
 
     @ApiProperty()
     @Length(24)
-    id: ObjectID;
+    id: string;
 
     @ApiProperty()
     @IsNumberString()

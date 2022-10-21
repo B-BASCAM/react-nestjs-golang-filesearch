@@ -17,9 +17,9 @@ export class TasksEntityRepository {
 
   async createTask(TaskEntity: TaskEntity): Promise<TaskEntity> {
 
-    const result = await this.taskRepository.insert(TaskEntity);
+    const result = await this.taskRepository.save(TaskEntity);
 
-    return await this.taskRepository.findOneBy(result.identifiers[0].id);
+    return await this.taskRepository.findOneBy(result._id);
   }
 
   async findTaskById(id: ObjectID): Promise<TaskEntity> {

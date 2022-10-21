@@ -41,7 +41,9 @@ export class GetTaskDetailByIdHandler extends AutomapperProfile
             return JSON.parse(cachedValue);
         }
 
-        const taskEntitys = await this.repository.findTaskById(showTaskDetailReqDto.id);
+        const { ObjectID } = require('mongodb').ObjectId;
+
+        const taskEntitys = await this.repository.findTaskById(ObjectID(showTaskDetailReqDto.id));
 
         const showTaskDetailResDto = this.mapper.map(taskEntitys, TaskEntity, ShowTaskDetailResDto);
 
@@ -49,7 +51,7 @@ export class GetTaskDetailByIdHandler extends AutomapperProfile
 
             const skipNumber = Number(showTaskDetailReqDto.pageNumber) > 0 ? (Number(showTaskDetailReqDto.pageNumber) - 1) * 50 : 0;
 
-            const options = { where: { taskId: showTaskDetailReqDto.id }, skip: skipNumber, take: 50 }
+            const options = { where: { taskId: ObjectID(showTaskDetailReqDto.id) }, skip: skipNumber, take: 50 }
 
             const taskDetailEntity = await this.repository.findTaskDetailByTaskId(options);
 

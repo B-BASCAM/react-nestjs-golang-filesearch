@@ -18,8 +18,9 @@ export class CreateTaskDetailHandler extends AutomapperProfile
 
     override get profile() {
         return (mapper) => {
+            const { ObjectID } = require('mongodb').ObjectId;
             createMap(mapper, CreateTaskDetailReqDto, TaskDetailEntity, afterMap((source, destination) => {
-                destination.taskId = source.taskId,
+                destination.taskId = ObjectID(source.taskId),
                     destination.matchedFilePath = source.matchedFilePath
             }))
                 ;
@@ -28,7 +29,7 @@ export class CreateTaskDetailHandler extends AutomapperProfile
 
     async execute(CreateTaskDetailCommand: CreateTaskDetailCommand): Promise<any> {
 
-        const { ObjectID } = require('mongodb').ObjectId;
+
 
         const { createTaskDetailReqDtoList } = CreateTaskDetailCommand;
 

@@ -5,21 +5,21 @@ import { ObjectID } from 'typeorm';
 
 export class UpdateTaskReqDto {
 
-    @Length(24)
+    // @Length(24)
     id: string;
 
-    @Length(5, 15)
+    // @Length(5, 15)
     @ApiProperty()
     @AutoMap()
     status: string;
 
-    @Min(0)
-    @Max(100)
+    // @Min(0)
+    // @Max(100)
     @ApiProperty()
     @AutoMap()
     progressPercentage: number;
 
-    @Min(0)
+    //@Min(0)
     @ApiProperty()
     @AutoMap()
     countOfMatchedFiles: number;
