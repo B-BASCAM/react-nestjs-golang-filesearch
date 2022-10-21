@@ -5,7 +5,7 @@ import (
 )
 
 type TaskEntity struct {
-	Id                  primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
+	Id                  primitive.ObjectID `bson:"id,omitempty" json:"id,omitempty"`
 	RequestedFileName   string             `bson:"requestedFileName,omitempty" json:"requestedFileName,omitempty"`
 	Status              string             `bson:"status,omitempty" json:"status,omitempty"`
 	ProgressPercentage  int                `bson:"progressPercentage,omitempty" json:"progressPercentage,omitempty"`

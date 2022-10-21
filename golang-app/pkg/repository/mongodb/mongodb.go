@@ -71,7 +71,7 @@ func (entity *DBEntity) Connect() {
 
 type TaskEntityDB model.TaskEntity
 
-func (f TaskEntityDB) Update(m model.TaskEntity) error {
+func (t TaskEntityDB) Update(m model.TaskEntity) error {
 
 	filter := bson.M{}
 
@@ -105,7 +105,7 @@ func (f TaskEntityDB) Update(m model.TaskEntity) error {
 
 type TaskDetailEntityDB model.TaskDetailEntity
 
-func (f TaskDetailEntityDB) AddMany(m []model.TaskDetailEntity) error {
+func (t TaskDetailEntityDB) AddMany(m []model.TaskDetailEntity) error {
 
 	docs := make([]interface{}, len(m))
 

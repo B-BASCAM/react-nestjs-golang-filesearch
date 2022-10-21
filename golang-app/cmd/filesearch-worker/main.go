@@ -6,7 +6,7 @@ import (
 	"golangapp/golang-app/pkg/config"
 	"golangapp/golang-app/pkg/logger"
 	repositoryInterface "golangapp/golang-app/pkg/repository"
-	repositoryMongoDB "golangapp/golang-app/pkg/repository/mongodb"
+	repositoryNestService "golangapp/golang-app/pkg/repository/nestservice"
 )
 
 const (
@@ -28,7 +28,7 @@ func Initialize() {
 
 	logger.CreateLogger(config.GetConfig()["LOG_PREFIX"], config.GetConfig()["LOG_FILENAME"])
 
-	repositoryInterface.SetDB(repositoryMongoDB.NewDBEntity(config.GetConfig()["MONGODB_DATABASE"], config.GetConfig()["MONGODB_SERVERURL"]))
+	repositoryInterface.SetDB(repositoryNestService.NewDBEntity("", config.GetConfig()["NESTJS_LOCAL"]))
 
 	go service.Initialize()
 

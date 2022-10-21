@@ -2,11 +2,13 @@
     "MONGODB_SERVERURL": "mongodb://admin:admin@127.0.0.1:27017/",
     "MONGODB_DATABASE": "test",
 
+    "NESTJS_LOCAL": "http://localhost:3000/tasks/",
+
     "REDIS_BROKER": "redis://127.0.0.1:5003",
 
     "LOG_PREFIX": "fw:",
     "LOG_FILENAME": "fileworker.log",
     
     "GOROUTINE_COUNT": "1000",
-    "SEARCH_ROOTPATH": "C://"
+    "SEARCH_ROOTPATH": "C://Users//gst64//Documents//WorkspaceInohom//nestjscqrs"
 }
