@@ -49,7 +49,7 @@ export class GetTaskDetailByIdHandler extends AutomapperProfile
 
             const skipNumber = Number(showTaskDetailReqDto.pageNumber) > 0 ? (Number(showTaskDetailReqDto.pageNumber) - 1) * 50 : 0;
 
-            const options = { where: { searchid: showTaskDetailReqDto.id }, skip: skipNumber, take: 50 }
+            const options = { where: { taskId: showTaskDetailReqDto.id }, skip: skipNumber, take: 50 }
 
             const taskDetailEntity = await this.repository.findTaskDetailByTaskId(options);
 

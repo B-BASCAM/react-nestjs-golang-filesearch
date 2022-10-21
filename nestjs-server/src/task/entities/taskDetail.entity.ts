@@ -5,7 +5,7 @@ import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 export class TaskDetailEntity {
 
     @ObjectIdColumn()
-    id: ObjectID;
+    _id: ObjectID;
 
     @ObjectIdColumn()
     taskId: ObjectID;

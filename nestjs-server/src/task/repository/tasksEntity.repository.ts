@@ -39,7 +39,8 @@ export class TasksEntityRepository {
 
   async createManyTaskDetail(taskDetailEntityList: TaskDetailEntity[]): Promise<any> {
 
-    return await this.taskRepository.insert(taskDetailEntityList);
+
+    return await this.taskDetailRepository.insert(taskDetailEntityList);
   }
 
 }

@@ -28,7 +28,7 @@ export class CreateTaskHandler
         return (mapper) => {
             createMap(mapper, TaskEntity, CreateTaskResDto,
                 afterMap((source, destination) => {
-                    destination.id = source.id.toString()
+                    destination.id = source._id.toString()
                 }));
 
             createMap(mapper, CreateTaskReqDto, TaskEntity,

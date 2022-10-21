@@ -6,7 +6,7 @@ import { ObjectID } from 'typeorm';
 export class UpdateTaskReqDto {
 
     @Length(24)
-    id: ObjectID;
+    id: string;
 
     @Length(5, 15)
     @ApiProperty()
@@ -24,12 +24,12 @@ export class UpdateTaskReqDto {
     @AutoMap()
     countOfMatchedFiles: number;
 
-    @Length(19)
+
     @ApiProperty()
     @AutoMap()
     updateAt: string;
 
-    @Length(0, 10)
+
     @ApiProperty()
     @AutoMap()
     result: string;

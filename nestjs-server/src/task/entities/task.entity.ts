@@ -7,7 +7,7 @@ import { statusEnum } from '../enums/status.enum';
 export class TaskEntity {
 
     @ObjectIdColumn()
-    id: ObjectID;
+    _id: ObjectID;
 
     @AutoMap()
     @Column()

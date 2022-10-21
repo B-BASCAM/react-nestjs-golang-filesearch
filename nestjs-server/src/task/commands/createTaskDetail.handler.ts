@@ -2,7 +2,7 @@ import { } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateTaskDetailCommand } from './CreateTaskDetail.command';
 import { TasksEntityRepository } from '../repository/tasksEntity.repository';
-import { createMap, Mapper } from '@automapper/core';
+import { afterMap, createMap, Mapper } from '@automapper/core';
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
 import { CreateTaskDetailReqDto } from '../dto';
 import { TaskDetailEntity } from '../entities/taskDetail.entity';
@@ -18,7 +18,11 @@ export class CreateTaskDetailHandler extends AutomapperProfile
 
     override get profile() {
         return (mapper) => {
-            createMap(mapper, CreateTaskDetailReqDto, TaskDetailEntity);
+            createMap(mapper, CreateTaskDetailReqDto, TaskDetailEntity, afterMap((source, destination) => {
+                destination.taskId = source.taskId,
+                    destination.matchedFilePath = source.matchedFilePath
+            }))
+                ;
         };
     }
 

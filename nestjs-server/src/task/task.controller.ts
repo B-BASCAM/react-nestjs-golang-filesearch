@@ -51,7 +51,7 @@ export class FilesController {
     return showTaskDetailResDto;
   }
 
-  @Put('updateTask')
+  @Post('updateTask')
   async updateTask(@Body() params: UpdateTaskReqDto): Promise<any> {
 
     try {
@@ -72,5 +72,4 @@ export class FilesController {
       throw new InternalServerErrorException(this.configService.get('ERROR_INTERNALSERVER', 'An Unknown Error Occured') + ": " + err);
     }
   }
-
 }
