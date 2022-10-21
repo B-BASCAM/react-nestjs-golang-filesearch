@@ -17,6 +17,7 @@ export class UpdateTaskHandler
         const { updateTaskReqDto } = UpdateTaskCommand;
 
         return this.repository.updateOneTask({ _id: ObjectID(updateTaskReqDto.id) }, {
+
             $set:
             {
                 countOfMatchedFiles: updateTaskReqDto.countOfMatchedFiles,

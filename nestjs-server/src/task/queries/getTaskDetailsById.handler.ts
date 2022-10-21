@@ -5,9 +5,8 @@ import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
 import { afterMap, createMap, Mapper } from '@automapper/core';
 import { ShowTaskDetailResDto } from '../dto/showTaskDetailRes.dto';
 import { TaskEntity } from '../entities/task.entity';
-import { statusEnum } from '../enums/status.enum';
 import { customCacheManager } from '../cache/customCacheManager';
-import { resultEnum } from '../enums/result.enum';
+
 
 @QueryHandler(GetTaskDetailByIdQuery)
 export class GetTaskDetailByIdHandler extends AutomapperProfile

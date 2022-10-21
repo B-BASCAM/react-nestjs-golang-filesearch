@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumberString, IsObject, Length } from 'class-validator';
-import { ObjectID } from 'typeorm';
+import { IsNumberString, Length } from 'class-validator';
 
 export class ShowTaskDetailReqDto {
 

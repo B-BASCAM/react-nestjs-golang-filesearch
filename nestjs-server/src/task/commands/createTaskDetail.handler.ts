@@ -29,8 +29,6 @@ export class CreateTaskDetailHandler extends AutomapperProfile
 
     async execute(CreateTaskDetailCommand: CreateTaskDetailCommand): Promise<any> {
 
-
-
         const { createTaskDetailReqDtoList } = CreateTaskDetailCommand;
 
         var taskDetailList = createTaskDetailReqDtoList.map(createTaskDetailReqDto => this.mapper.map(createTaskDetailReqDto, CreateTaskDetailReqDto, TaskDetailEntity))
