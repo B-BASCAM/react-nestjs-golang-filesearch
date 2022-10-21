@@ -56,6 +56,7 @@ func (t TaskEntityDB) Update(m model.TaskEntity) error {
 	}
 
 	req, err := http.NewRequest(http.MethodPut, serviceUrl+"updateTask", bytes.NewBuffer(taskJSON))
+
 	if err != nil {
 		logger.GetLogger().Fatalf("client: could not create request: %s\n", err)
 	}
@@ -87,6 +88,7 @@ func (t TaskDetailEntityDB) AddMany(m []model.TaskDetailEntity) error {
 	}
 
 	req, err := http.NewRequest(http.MethodPost, serviceUrl+"createTaskDetail", bytes.NewBuffer(taskDetailListJSON))
+
 	if err != nil {
 		logger.GetLogger().Fatalf("client: could not create request: %s\n", err)
 	}
