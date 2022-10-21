@@ -66,7 +66,6 @@ func (entity *DBEntity) Connect() {
 	}
 
 	db = client.Database(entity.DatabaseName)
-
 }
 
 type TaskEntityDB model.TaskEntity
@@ -100,7 +99,6 @@ func (t TaskEntityDB) Update(m model.TaskEntity) error {
 	)
 
 	return err
-
 }
 
 type TaskDetailEntityDB model.TaskDetailEntity

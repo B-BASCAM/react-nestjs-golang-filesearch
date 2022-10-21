@@ -16,9 +16,7 @@ func GetLogger() *log.Logger {
 
 func CreateLogger(prefix, fileName string) {
 
-	//absFilePath, _ := filepath.Abs("/var/log/golangapp/")
-
-	logFileNameWithPath := fileName //absFilePath +
+	logFileNameWithPath := fileName
 
 	file, err := openCreateLogFile(logFileNameWithPath)
 

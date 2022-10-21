@@ -41,7 +41,7 @@ func setIntervalVariables() {
 		intervalCount = count / 50
 		intervalPercentage = 2
 	case totalCount > 500000:
-		intervalCount = count / 34
+		intervalCount = count / 33
 		intervalPercentage = 3
 	case totalCount > 150000:
 		intervalCount = count / 25
@@ -53,14 +53,14 @@ func setIntervalVariables() {
 		intervalCount = count / 10
 		intervalPercentage = 10
 	case totalCount > 30000:
-		intervalCount = count / 8
-		intervalPercentage = 13
+		intervalCount = count / 9
+		intervalPercentage = 11
 	case totalCount > 10000:
 		intervalCount = count / 5
 		intervalPercentage = 20
 	case totalCount > 2500:
 		intervalCount = count / 3
-		intervalPercentage = 34
+		intervalPercentage = 33
 	case totalCount > 500:
 		intervalCount = count / 2
 		intervalPercentage = 50

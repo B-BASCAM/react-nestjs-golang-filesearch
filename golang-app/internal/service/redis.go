@@ -41,11 +41,9 @@ func addTasksToChannelFromQueue() {
 		redisQueueChannel <- searchTask
 
 		return "0"
-
 	}
 
 	cli.Register("add", add)
 
 	cli.StartWorker()
-
 }

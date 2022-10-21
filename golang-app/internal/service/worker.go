@@ -84,7 +84,9 @@ func searchPathsForFileNames(searchTask SearchTask) error {
 
 		return nil
 	})
+
 	taskResult = string(model.Error)
+
 	if err == nil {
 		taskResult = string(model.Success)
 		currentPercentage = 100
@@ -99,10 +101,10 @@ func searchPathsForFileNames(searchTask SearchTask) error {
 
 func editTaskAddTaskDetail(taskID string, currentPercentage int, matchedFilePaths []string, countOfMatchedFiles int, status string, result string) {
 
-	go editTask(taskID, currentPercentage, countOfMatchedFiles, status, result)
+	editTask(taskID, currentPercentage, countOfMatchedFiles, status, result)
 
 	if len(matchedFilePaths) > 0 {
-		go addTaskDetail(taskID, matchedFilePaths)
+		addTaskDetail(taskID, matchedFilePaths)
 	}
 
 }
