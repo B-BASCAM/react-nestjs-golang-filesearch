@@ -40,7 +40,7 @@ Search directory and the count of goroutines that will work simultaneously must 
   percentage increment rate. **This operation may take time according to total count of files and directories.**
 - GoApp listens Redis Queue and puts the data to a buffered go channel. Buffered channel's capacity is twice of total goroutines count.
 - When percentage increment rate is determined, N goroutines start to listen buffered channel.
-- Goroutines take the task from channel, walk through the paths/files and update/insert mongoDB collections simultaneously. They never block each other.
+- Goroutines take the task from channel, walk through the paths/files and update/insert mongoDB collections calling NestJS service methods simultaneously. They never block each other.
 
 <br>
   <img src="assets/img/dbschema.png" alt="" width="500"></a>
