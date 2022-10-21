@@ -10,8 +10,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func startWorkers() {
@@ -101,22 +99,15 @@ func searchPathsForFileNames(searchTask SearchTask) error {
 
 func editTaskAddTaskDetail(taskID string, currentPercentage int, matchedFilePaths []string, countOfMatchedFiles int, status string, result string) {
 
-	castedTaskId, err := primitive.ObjectIDFromHex(taskID)
-
-	if err != nil {
-		logger.GetLogger().Println(err)
-		return
-	}
-
-	go editTask(castedTaskId, currentPercentage, countOfMatchedFiles, status, result)
+	go editTask(taskID, currentPercentage, countOfMatchedFiles, status, result)
 
 	if len(matchedFilePaths) > 0 {
-		go addTaskDetail(castedTaskId, matchedFilePaths)
+		go addTaskDetail(taskID, matchedFilePaths)
 	}
 
 }
 
-func addTaskDetail(taskId primitive.ObjectID, matchedFilePaths []string) {
+func addTaskDetail(taskId string, matchedFilePaths []string) {
 
 	var taskDetailEntityList []model.TaskDetailEntity
 
@@ -134,7 +125,7 @@ func addTaskDetail(taskId primitive.ObjectID, matchedFilePaths []string) {
 	}
 }
 
-func editTask(taskId primitive.ObjectID, currentPercentage int, countOfMatchedFiles int, status string, result string) {
+func editTask(taskId string, currentPercentage int, countOfMatchedFiles int, status string, result string) {
 
 	taskEntity := model.TaskEntity{
 		Id:                  taskId,

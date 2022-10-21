@@ -10,5 +10,5 @@
     "LOG_FILENAME": "fileworker.log",
     
     "GOROUTINE_COUNT": "1000",
-    "SEARCH_ROOTPATH": "C://Users//gst64//Documents//WorkspaceInohom//nestjscqrs"
+    "SEARCH_ROOTPATH": "C://Users//gst64//Documents//WorkspaceInohom//nestjscqrs//"
 }

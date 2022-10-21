@@ -61,7 +61,7 @@ func (t TaskEntityDB) Update(m model.TaskEntity) error {
 	client := http.Client{
 		Timeout: 30 * time.Second,
 	}
-	defer client.CloseIdleConnections()
+
 	_, err = client.Do(req)
 
 	if err != nil {
@@ -88,8 +88,6 @@ func (t TaskDetailEntityDB) AddMany(m []model.TaskDetailEntity) error {
 	client := http.Client{
 		Timeout: 30 * time.Second,
 	}
-
-	defer client.CloseIdleConnections()
 
 	_, err = client.Do(req)
 
