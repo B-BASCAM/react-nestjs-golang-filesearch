@@ -51,7 +51,7 @@ export class FilesController {
     return showTaskDetailResDto;
   }
 
-  @Post('updateTask')
+  @Put('updateTask')
   async updateTask(@Body() params: UpdateTaskReqDto): Promise<any> {
 
     try {

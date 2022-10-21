@@ -51,7 +51,11 @@ func (t TaskEntityDB) Update(m model.TaskEntity) error {
 
 	taskJSON, err := json.Marshal(m)
 
-	req, err := http.NewRequest(http.MethodPost, serviceUrl+"updateTask", bytes.NewBuffer(taskJSON))
+	if err != nil {
+		logger.GetLogger().Fatalf("taskDetail model json.Marshal error: %s\n", err)
+	}
+
+	req, err := http.NewRequest(http.MethodPut, serviceUrl+"updateTask", bytes.NewBuffer(taskJSON))
 	if err != nil {
 		logger.GetLogger().Fatalf("client: could not create request: %s\n", err)
 	}
@@ -77,6 +81,10 @@ type TaskDetailEntityDB model.TaskDetailEntity
 func (t TaskDetailEntityDB) AddMany(m []model.TaskDetailEntity) error {
 
 	taskDetailListJSON, err := json.Marshal(m)
+
+	if err != nil {
+		logger.GetLogger().Fatalf("taskDetail model json.Marshal error: %s\n", err)
+	}
 
 	req, err := http.NewRequest(http.MethodPost, serviceUrl+"createTaskDetail", bytes.NewBuffer(taskDetailListJSON))
 	if err != nil {
