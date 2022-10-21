@@ -25,6 +25,10 @@ func setIntervalVariables() {
 
 		count++
 
+		if count > 0 && count%100000 == 0 {
+			logger.GetLogger().Println("COUNTING CONTINUES :", count)
+		}
+
 		return nil
 	})
 
