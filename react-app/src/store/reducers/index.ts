@@ -9,6 +9,6 @@ export const initialState: IState = {
   todos: initialTodoState
 };
 
-export default combineReducers({
+export const appReducer = combineReducers<IState>({
   todos: todosReducer
 });
