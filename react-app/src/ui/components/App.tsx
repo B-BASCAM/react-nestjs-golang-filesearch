@@ -4,12 +4,11 @@ import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
-import { ITodoItem } from '../types/todoitem';
-import { ApiStatus } from '../types/apistatus';
+import { ApiStatus, ITodoItem } from '../../types/todoitem';
 import Paper from '@material-ui/core/Paper';
 import { CircularProgress, Typography } from '@material-ui/core';
-import { addTodo, loadTodos } from '../store/actions/todosActions';
-import { IState } from '../store/reducers';
+import { addTodo, loadTodos } from '../../store/actions/todosActions';
+import { IState } from '../../store/reducers';
 
 
 const styles = (theme: Theme) => createStyles({

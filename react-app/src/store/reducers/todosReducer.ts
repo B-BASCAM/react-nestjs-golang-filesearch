@@ -1,5 +1,6 @@
 import produce from 'immer';
-import { ApiStatus, ITodoItem } from '../models';
+import { ITodoItem } from '../../types/todoitem';
+import { ApiStatus } from '../../types/apistatus';
 import { TodosAction, TodosActionTypes } from '../actions/todosActions';
 
 export const initialTodoState: ITodoState = {
