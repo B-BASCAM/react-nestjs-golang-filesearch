@@ -9,16 +9,6 @@ export const NotFound404 = memo(function NotFound404() {
     const location = useLocation();
 
 
-    // useEffect(() => {
-    //     const path = location?.pathname || null;
-    //     if (path != null) {
-    //         rpc.sendBrokenLink(location.pathname)
-    //             .catch(() => {
-    //             });
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, []);
-
     return (
         <>
             <div className='not-found-404'>

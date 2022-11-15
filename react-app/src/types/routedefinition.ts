@@ -1,5 +1,8 @@
+import React from "react";
+
+
 export type RouteDefinition = {
     routerLink?: string;
     exact?: boolean;
-    component?: React.ComponentType<any>;
+    element?: React.ReactNode | null;
 };
