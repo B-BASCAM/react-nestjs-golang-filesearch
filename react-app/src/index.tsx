@@ -8,11 +8,16 @@ import App from './ui/components/App';
 import { persistor, store } from './store/store';
 import reportWebVitals from './reportWebVitals';
 
+
+
+
 const root = ReactDOM.createRoot(
   document.getElementById('app') as HTMLElement
 );
 root.render(
+
   <React.StrictMode>
+
     <Provider store={store}>
       <PersistGate persistor={persistor} >
         <BrowserRouter>
@@ -20,6 +25,7 @@ root.render(
         </BrowserRouter>
       </PersistGate>
     </Provider>
+
   </React.StrictMode >
 );
 

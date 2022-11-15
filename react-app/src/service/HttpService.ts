@@ -1,0 +1,32 @@
+import axios, { AxiosRequestConfig } from "axios";
+import KeyCloakService from "./security/KeycloakService";
+
+const HttpMethods = {
+  GET: "GET",
+  POST: "POST",
+  DELETE: "DELETE",
+};
+
+const _axios = axios.create();
+
+const configure = (config: AxiosRequestConfig) => {
+  _axios.interceptors.request.use((config: AxiosRequestConfig) => {
+    if (KeyCloakService.IsLoggedIn()) {
+      const cb = () => {
+        // config.headers.Authorization = `Bearer ${KeyCloakService.GetToken()}`;
+        return Promise.resolve(config);
+      };
+      return KeyCloakService.UpdateToken(cb);
+    }
+  });
+};
+
+const getAxiosClient = () => _axios;
+
+const HttpService = {
+  HttpMethods,
+  configure,
+  getAxiosClient,
+};
+
+export default HttpService;

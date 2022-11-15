@@ -9,6 +9,7 @@ export const getRouteList = (): RouteDefinition[] => [
         routerLink: '/deneme',
         exact: true,
         element: React.createElement(_App),
+
     },
     {
         routerLink: '/deneme2',
