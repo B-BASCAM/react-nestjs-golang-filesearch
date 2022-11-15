@@ -7,6 +7,8 @@ import './index.css';
 import App from './ui/components/App';
 import { persistor, store } from './store/store';
 import reportWebVitals from './reportWebVitals';
+import KeyCloakService from './service/security/KeycloakService';
+import HttpService from './service/HttpService';
 
 
 
@@ -14,21 +16,25 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(
   document.getElementById('app') as HTMLElement
 );
-root.render(
 
-  <React.StrictMode>
+const renderApp = () =>
+  root.render(
 
-    <Provider store={store}>
-      <PersistGate persistor={persistor} >
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </PersistGate>
-    </Provider>
+    <React.StrictMode>
 
-  </React.StrictMode >
-);
+      <Provider store={store}>
+        <PersistGate persistor={persistor} >
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </PersistGate>
+      </Provider>
 
+    </React.StrictMode >
+  );
+
+KeyCloakService.CallLogin(renderApp);
+HttpService.configure();
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

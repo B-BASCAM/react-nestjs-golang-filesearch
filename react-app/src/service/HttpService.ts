@@ -9,16 +9,17 @@ const HttpMethods = {
 
 const _axios = axios.create();
 
-const configure = (config: AxiosRequestConfig) => {
-  _axios.interceptors.request.use((config: AxiosRequestConfig) => {
-    if (KeyCloakService.IsLoggedIn()) {
-      const cb = () => {
-        // config.headers.Authorization = `Bearer ${KeyCloakService.GetToken()}`;
-        return Promise.resolve(config);
-      };
-      return KeyCloakService.UpdateToken(cb);
-    }
-  });
+const configure = () => {
+  _axios.interceptors.request.use(
+    (config: any) => {
+      if (KeyCloakService.IsLoggedIn()) {
+        const cb = () => {
+          config.headers.Authorization = `Bearer ${KeyCloakService.GetToken()}`;
+          return Promise.resolve(config);
+        };
+        return KeyCloakService.UpdateToken(cb);
+      }
+    });
 };
 
 const getAxiosClient = () => _axios;
