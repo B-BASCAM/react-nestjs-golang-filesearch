@@ -1,4 +1,4 @@
-import { ITodoItem } from "../models";
+import { ITodoItem } from "../../types/todoitem";
 
 export enum TodosActionTypes {
   LOAD_TODOS = 'todos/load',

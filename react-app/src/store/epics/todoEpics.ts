@@ -14,6 +14,9 @@ import {
 import { IState } from "../reducers";
 import { from, of } from "rxjs";
 import { isOfType } from "typesafe-actions";
+import { addtodoservice } from "../../service/todoservice";
+
+
 
 const loadTodosEpic: Epic<TodosAction, TodosAction, IState> = (
   action$,
@@ -46,7 +49,7 @@ const addTodoEpic: Epic<TodosAction, TodosAction, IState> = (
 
   }),
   mergeMap(action =>
-    from(axios.post("http://localhost:5000/todos", action.payload)).pipe(
+    from(addtodoservice(action)).pipe(
       map(response => addedTodo(response.data.data)),
       startWith(addingTodo()),
       catchError(() => of(addingTodoFailed()))

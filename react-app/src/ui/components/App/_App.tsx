@@ -4,11 +4,12 @@ import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
-import { ApiStatus, ITodoItem } from '../models';
+import { ITodoItem } from '../../../types/todoitem';
+import { ApiStatus } from '../../../types/apistatus';
 import Paper from '@material-ui/core/Paper';
 import { CircularProgress, Typography } from '@material-ui/core';
-import { addTodo, loadTodos } from '../actions/todosActions';
-import { IState } from '../reducers';
+import { addTodo, loadTodos } from '../../../store/actions/todosActions';
+import { IState } from '../../../store/reducers';
 
 
 const styles = (theme: Theme) => createStyles({
@@ -33,7 +34,7 @@ const styles = (theme: Theme) => createStyles({
   }
 });
 
-const App = (props: any) => {
+const _App = (props: any) => {
 
 
   const dispatch = useDispatch();
@@ -88,6 +89,6 @@ const App = (props: any) => {
 
 }
 
-export default withStyles(styles)(App);
+export default withStyles(styles)(_App);
 
 
