@@ -8,7 +8,7 @@ import { AppMenu } from '../SideBar/AppMenu';
 import { AppConfig } from '../AppConfig/AppConfig';
 import {NotFound404} from '../NotFound404/NotFound404'
 import {Viewport} from '../Viewport/index'
-import { RouteDefinition } from '../../types/routedefinition';
+import { RouteDefinition } from '../../types/routeDefinition';
 
 import PrimeReact from 'primereact/api';
 import { Tooltip } from 'primereact/tooltip';
@@ -18,10 +18,12 @@ import 'primeflex/primeflex.css';
 import 'prismjs/themes/prism-coy.css';
 import '../../assets/layout/layout.scss';
 import './App.scss';
+import { MenuList } from '../../types/menuList';
 
 
 type Props = {
     routes: RouteDefinition[];
+    menus: MenuList;
 };
 const AppComponent = (props: Props) => {
     const [layoutMode, setLayoutMode] = useState('static');
@@ -132,8 +134,8 @@ const AppComponent = (props: Props) => {
     const isDesktop = () => {
         return window.innerWidth >= 992;
     }
-
-    const menu = [
+const menu=props.menus
+    const menua = [
         {
             label: 'Home',
             items: [{
