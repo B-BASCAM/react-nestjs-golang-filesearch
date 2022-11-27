@@ -1,15 +1,11 @@
 {
     "MONGODB_SERVERURL": "mongodb://admin:admin@mongodb/",
     "MONGODB_DATABASE": "test",
-
     "NESTJS_LOCAL": "http://localhost:3000/tasks/",
-
     "REDIS_BROKER": "redis://myredis:6379",
-
     "LOG_PREFIX": "fw:",
     "LOG_FILENAME": "fileworker.log",
-
     "GOROUTINE_COUNT": "1000",
-    "SEARCH_ROOTPATH": "/home"  
+    "SEARCH_ROOTPATH": "/Users"
 }
  

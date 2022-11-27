@@ -75,11 +75,13 @@ $ go mod download
 
 # 6) Build the GoApp                             (PS ....nestjs-golang-filesearch>)
 $ go build -o .\golang-app\bin\  .\golang-app\cmd\filesearch-worker\. 
+$ go build -o ./golang-app/bin/ ./golang-app/cmd/filesearch-worker/.
 
 # 7) Run GoApp                                   (PS ....nestjs-golang-filesearch>)
 # Be patient. This may take time. (For 1.000.000 files/folder it took 4 minutes in my PC)
 # When goroutines start to work, "GOROUTINES ARE RUNNING" message will be on the log file.   (PS ....nestjs-golang-filesearch\golang-app\bin\fileworker.log>)
 $ .\golang-app\bin\filesearch-worker 
+$ ./golang-app/bin/filesearch-worker 
 
 # 8) Open New Terminal
 # Go into the nest project                    (PS ....nestjs-golang-filesearch>)

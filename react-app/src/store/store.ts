@@ -2,7 +2,7 @@ import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { appReducer } from './reducers';
-import epicMiddleware, { rootEpic } from './epics';
+import epicMiddleware, { rootEpic, rootEpic2 } from './epics';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 const composeEnhancer = composeWithDevTools({
@@ -23,4 +23,5 @@ export const store = createStore(
 );
 export const persistor = persistStore(store);
 
-epicMiddleware.run(rootEpic);
+//epicMiddleware.run(rootEpic);
+epicMiddleware.run(rootEpic2);

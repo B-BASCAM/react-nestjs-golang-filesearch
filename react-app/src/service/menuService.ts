@@ -4,6 +4,15 @@ export const getMenuList = (): MenuList => [
     {
         label: 'Home',
         items: [{
+            label: 'Create Task', icon: 'pi pi-fw pi-home', to: '/deneme'
+        }]
+    },
+ 
+];
+export const getMenuList2 = (): MenuList => [
+    {
+        label: 'Home',
+        items: [{
             label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/'
         }]
     },
