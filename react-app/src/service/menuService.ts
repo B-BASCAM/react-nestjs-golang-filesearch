@@ -1,7 +1,5 @@
 import { MenuList } from '../types/menuList';
 
-
-
 export const getMenuList = (): MenuList => [
     {
         label: 'Home',
