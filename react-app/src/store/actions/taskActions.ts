@@ -1,5 +1,4 @@
 import { ICreateTaskRes } from "../../types/createTaskRes";
-import { ITodoItem } from "../../types/todoItem";
 
 export enum TaskActionTypes {
   ADD_TASK = 'todos/add',

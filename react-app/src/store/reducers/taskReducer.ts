@@ -23,13 +23,13 @@ export default function todosReducer(state: ITaskState = initialTaskState, actio
         break;
 
       case TaskActionTypes.ADDED_TASK:
-       console.log("TaskActionTypes.ADDED_TASK")
+        console.log("TaskActionTypes.ADDED_TASK")
         console.log(action.payload)
         draft.loadingStatus = ApiStatus.LOADED;
         draft.task = action.payload.createTaskRes;
-        let myArr = [];
+        let myArr: ICreateTaskRes[] = [];
         myArr.push(draft.task);
-        draft.tasks=myArr;
+        draft.tasks = myArr;
         break;
     }
   });

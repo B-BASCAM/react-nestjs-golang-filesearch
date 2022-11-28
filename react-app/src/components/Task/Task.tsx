@@ -41,7 +41,7 @@ const TaskPage = () => {
                     <div className="col-12">
                         <div className="card">
                             <DataTable value={tasks} responsiveLayout="scroll">
-                                <Column field="id" header="id"></Column>
+                                <Column field="id" header="Task Id"></Column>
                                 <Column field="requestedFileName" header="requestedFileName"></Column>
                                 <Column field="status" header="status"></Column>
                             </DataTable>

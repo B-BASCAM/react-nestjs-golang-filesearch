@@ -1,9 +1,9 @@
 import axios from "axios";
-import { IAddTaskAction } from "../store/actions/taskActions";
+import { ILoadTaskDetailAction } from "../store/actions/taskDetailActions";
 
 
-export const addtaskservice = (action: IAddTaskAction): Promise<any> => {
+export const loadTaskDetailService = (action: ILoadTaskDetailAction): Promise<any> => {
     return (
-        axios.post("http://localhost:3000/tasks/createTask", action.payload)
+        axios.get("http://localhost:3000/tasks/showTaskDetail/" + action.payload.taskId + "/" + action.payload.pageNum)
     )
 }
