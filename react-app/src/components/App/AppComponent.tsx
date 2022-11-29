@@ -6,8 +6,8 @@ import { CSSTransition } from 'react-transition-group';
 import { AppTopbar } from '../Header/AppTopbar';
 import { AppMenu } from '../SideBar/AppMenu';
 import { AppConfig } from '../AppConfig/AppConfig';
-import {NotFound404} from '../NotFound404/NotFound404'
-import {Viewport} from '../Viewport/index'
+import { NotFound404 } from '../NotFound404/NotFound404'
+import { Viewport } from '../Viewport/index'
 import { RouteDefinition } from '../../types/routeDefinition';
 
 import PrimeReact from 'primereact/api';
@@ -134,109 +134,8 @@ const AppComponent = (props: Props) => {
     const isDesktop = () => {
         return window.innerWidth >= 992;
     }
-const menu=props.menus
-    const menua = [
-        {
-            label: 'Home',
-            items: [{
-                label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/'
-            }]
-        },
-        {
-            label: 'UI Components', icon: 'pi pi-fw pi-sitemap',
-            items: [
-                { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', to: '/formlayout' },
-                { label: 'Input', icon: 'pi pi-fw pi-check-square', to: '/input' },
-                { label: "Float Label", icon: "pi pi-fw pi-bookmark", to: "/floatlabel" },
-                { label: "Invalid State", icon: "pi pi-fw pi-exclamation-circle", to: "invalidstate" },
-                { label: 'Button', icon: 'pi pi-fw pi-mobile', to: '/button' },
-                { label: 'Table', icon: 'pi pi-fw pi-table', to: '/table' },
-                { label: 'List', icon: 'pi pi-fw pi-list', to: '/list' },
-                { label: 'Tree', icon: 'pi pi-fw pi-share-alt', to: '/tree' },
-                { label: 'Panel', icon: 'pi pi-fw pi-tablet', to: '/panel' },
-                { label: 'Overlay', icon: 'pi pi-fw pi-clone', to: '/overlay' },
-                { label: "Media", icon: "pi pi-fw pi-image", to: "/media" },
-                { label: 'Menu', icon: 'pi pi-fw pi-bars', to: '/menu' },
-                { label: 'Message', icon: 'pi pi-fw pi-comment', to: '/messages' },
-                { label: 'File', icon: 'pi pi-fw pi-file', to: '/file' },
-                { label: 'Chart', icon: 'pi pi-fw pi-chart-bar', to: '/chart' },
-                { label: 'Misc', icon: 'pi pi-fw pi-circle-off', to: '/misc' },
-            ]
-        },
-        {
-            label: 'UI Blocks',
-            items: [
-                { label: 'Free Blocks', icon: 'pi pi-fw pi-eye', to: '/blocks', badge: "NEW" },
-                { label: 'All Blocks', icon: 'pi pi-fw pi-globe', url: 'https://www.primefaces.org/primeblocks-react' }
-            ]
-        },
-        {
-            label: 'Icons',
-            items: [
-                { label: 'PrimeIcons', icon: 'pi pi-fw pi-prime', to: '/icons' }
-            ]
-        },
-        {
-            label: 'Pages', icon: 'pi pi-fw pi-clone',
-            items: [
-                { label: 'Crud', icon: 'pi pi-fw pi-user-edit', to: '/crud' },
-                { label: 'Timeline', icon: 'pi pi-fw pi-calendar', to: '/timeline' },
-                { label: 'Empty', icon: 'pi pi-fw pi-circle-off', to: '/empty' }
-            ]
-        },
-        {
-            label: 'Menu Hierarchy', icon: 'pi pi-fw pi-search',
-            items: [
-                {
-                    label: 'Submenu 1', icon: 'pi pi-fw pi-bookmark',
-                    items: [
-                        {
-                            label: 'Submenu 1.1', icon: 'pi pi-fw pi-bookmark',
-                            items: [
-                                { label: 'Submenu 1.1.1', icon: 'pi pi-fw pi-bookmark' },
-                                { label: 'Submenu 1.1.2', icon: 'pi pi-fw pi-bookmark' },
-                                { label: 'Submenu 1.1.3', icon: 'pi pi-fw pi-bookmark' },
-                            ]
-                        },
-                        {
-                            label: 'Submenu 1.2', icon: 'pi pi-fw pi-bookmark',
-                            items: [
-                                { label: 'Submenu 1.2.1', icon: 'pi pi-fw pi-bookmark' },
-                                { label: 'Submenu 1.2.2', icon: 'pi pi-fw pi-bookmark' }
-                            ]
-                        },
-                    ]
-                },
-                {
-                    label: 'Submenu 2', icon: 'pi pi-fw pi-bookmark',
-                    items: [
-                        {
-                            label: 'Submenu 2.1', icon: 'pi pi-fw pi-bookmark',
-                            items: [
-                                { label: 'Submenu 2.1.1', icon: 'pi pi-fw pi-bookmark' },
-                                { label: 'Submenu 2.1.2', icon: 'pi pi-fw pi-bookmark' },
-                                { label: 'Submenu 2.1.3', icon: 'pi pi-fw pi-bookmark' },
-                            ]
-                        },
-                        {
-                            label: 'Submenu 2.2', icon: 'pi pi-fw pi-bookmark',
-                            items: [
-                                { label: 'Submenu 2.2.1', icon: 'pi pi-fw pi-bookmark' },
-                                { label: 'Submenu 2.2.2', icon: 'pi pi-fw pi-bookmark' }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            label: 'Get Started',
-            items: [
-                { label: 'Documentation', icon: 'pi pi-fw pi-question', command: () => { window.location.href = "#/documentation" } },
-                { label: 'View Source', icon: 'pi pi-fw pi-search', command: () => { window.location.href = "https://github.com/primefaces/sakai-react" } }
-            ]
-        }
-    ];
+    const menu = props.menus
+
 
     const addClass = (element: any, className: any) => {
         if (element.classList)
@@ -276,30 +175,30 @@ const menu=props.menus
 
             <Viewport layoutColorMode={layoutColorMode}>
 
-            <Switch>
-                        {
-                            props.routes.filter(route => route.routerLink).map(
-                                route => (
-                                    <Route
-                                        key={route.routerLink}
-                                        path={route.routerLink}
-                                        exact={true}
-                                        component={route.component} />
-                                ),
-                            )
-                        }
+                <Switch>
+                    {
+                        props.routes.filter(route => route.routerLink).map(
+                            route => (
+                                <Route
+                                    key={route.routerLink}
+                                    path={route.routerLink}
+                                    exact={true}
+                                    component={route.component} />
+                            ),
+                        )
+                    }
 
-                        <Route
-                            path='*'
-                            exact={true}
-                            component={NotFound404} />
-                    </Switch>
+                    <Route
+                        path='*'
+                        exact={true}
+                        component={NotFound404} />
+                </Switch>
             </Viewport>
 
-        
 
-            <AppConfig rippleEffect={ripple} onRippleEffect={onRipple} inputStyle={inputStyle} onInputStyleChange={onInputStyleChange}
-                layoutMode={layoutMode} onLayoutModeChange={onLayoutModeChange} layoutColorMode={layoutColorMode} onColorModeChange={onColorModeChange} />
+
+            {/* <AppConfig rippleEffect={ripple} onRippleEffect={onRipple} inputStyle={inputStyle} onInputStyleChange={onInputStyleChange}
+                layoutMode={layoutMode} onLayoutModeChange={onLayoutModeChange} layoutColorMode={layoutColorMode} onColorModeChange={onColorModeChange} /> */}
 
             <CSSTransition classNames="layout-mask" timeout={{ enter: 200, exit: 200 }} in={mobileMenuActive} unmountOnExit>
                 <div className="layout-mask p-component-overlay"></div>
