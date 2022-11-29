@@ -10,11 +10,15 @@
 <h4 align="center"> A simple file search system. It searchs the given words, in the file names through the given directory and subdirectories. </h4>
 
 <p align="center">
-  <a href=""> <img src="https://img.shields.io/badge/nestjs-9.0.0-green"> </a>
+<a href=""> <img src="https://img.shields.io/badge/react-17.0.1-brightgreen"> </a>
+<a href=""> <img src="https://img.shields.io/badge/redux--observable-2.0.0-yellowgreen"> </a>
+<a href=""> <img src="https://img.shields.io/badge/rxjs-7.5.7-yellowgreen"> </a>
+  <a href=""> <img src="https://img.shields.io/badge/nestjs-9.0.0-brightgreen"> </a>
   <a href=""><img src="https://img.shields.io/badge/redis-io-red"></a>
   <a href=""><img src="https://img.shields.io/badge/mongo-DB-green"></a>
-  <a href=""><img src="https://img.shields.io/badge/golang-1.19-yellowgreen"></a>
+  <a href=""><img src="https://img.shields.io/badge/golang-1.19-brightgreen"></a>
 </p>
+
 
 <p align="center">
   <a href="#work-flow">Work Flow</a> •
@@ -55,7 +59,7 @@ Search directory and the count of goroutines that will work simultaneously must 
   
 ## How To Use
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) and [Golang](https://go.dev/dl/) installed on your computer. From your command line:
+To clone and run this application, you'll need [Docker Desktop](https://www.docker.com/products/docker-desktop/), [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) and [Golang](https://go.dev/dl/) installed on your computer. From your command line:
 
 ```bash
 # 1) Clone this repository
@@ -74,13 +78,10 @@ $ go mod download
 # Set the search directory (SEARCH_ROOTPATH) and count of goroutines that will work simultaneously (GOROUTINE_COUNT)
 
 # 6) Build the GoApp                             (PS ....nestjs-golang-filesearch>)
-$ go build -o .\golang-app\bin\  .\golang-app\cmd\filesearch-worker\. 
 $ go build -o ./golang-app/bin/ ./golang-app/cmd/filesearch-worker/.
 
 # 7) Run GoApp                                   (PS ....nestjs-golang-filesearch>)
-# Be patient. This may take time. (For 1.000.000 files/folder it took 4 minutes in my PC)
 # When goroutines start to work, "GOROUTINES ARE RUNNING" message will be on the log file.   (PS ....nestjs-golang-filesearch\golang-app\bin\fileworker.log>)
-$ .\golang-app\bin\filesearch-worker 
 $ ./golang-app/bin/filesearch-worker 
 
 # 8) Open New Terminal
@@ -94,11 +95,19 @@ $ npm install
 # 10) Run NestJSApp                                (PS ....nestjs-golang-filesearch\nestjs-server>)
 $ npm run start:dev
 
+# 11) Open New Terminal
+# Go into the react project                    (PS ....nestjs-golang-filesearch>)
+$ cd react-app
+
+# 12) Install dependencies                        (PS ....nestjs-golang-filesearch\react-app>)
+$ npm install --force
+
+# 13) Run react-app                                (PS ....nestjs-golang-filesearch\react-app>)
+$ npm start
 ```
 
 > **Note**
-- Create a task with [Swagger](http://localhost:3000/api)
-- Or use **nestjs-filenamesearch.postman_collection.json** file      (PS ....nestjs-golang-filesearch\assets\postman>)
+- You can also create a task with [Swagger](http://localhost:3000/api)
 
 ## Docker
 
@@ -122,7 +131,3 @@ $ docker build -t myfirstnestjsapp:version_1 .
 $ docker run -d -p 3000:3000 --net mongo-network --name mynest myfirstnestjsapp:version_1 
 
 ```
-
-> **Note**
-- GoApp container must be mounted to the file system that it will search
-- Time Zones must be configured while creating Go and NestJS containers
