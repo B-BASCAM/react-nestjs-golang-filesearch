@@ -6,7 +6,5 @@
     "LOG_PREFIX": "fw:",
     "LOG_FILENAME": "fileworker.log",
     "GOROUTINE_COUNT": "1000",
-    "SEARCH_ROOTPATH": "/Users",
-    "SEARCH_ROOTPATH2": "D:\\"
+    "SEARCH_ROOTPATH": "/Users"
 }
- 
